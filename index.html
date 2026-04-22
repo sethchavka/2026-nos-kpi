@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JGR O'Reilly Auto Parts Series — 2026 KPI Report</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
 :root {
-  --bg:#f4f5f7; --white:#ffffff; --dark:#1a1e2b; --mid:#4b5263; --muted:#9099ad;
-  --border:#dde1e9; --accent:#6b21e8; --jgr:#d4a017;
+  --bg:#f0f2f5; --white:#ffffff; --dark:#0f1218; --mid:#3d4558; --muted:#8892a4;
+  --border:#d0d5e0; --accent:#6b21e8; --jgr:#d4a017;
   --c18:#7c3aed; --c19:#f97316; --c20:#ef4444; --c54:#22c55e;
   --good:#16a34a; --warn:#d97706; --bad:#dc2626;
-  --pageW:1920px; --pageH:1080px;
-  /* chart internals */
-  --chart-bg:#ffffff; --chart-track:#eef0f5; --chart-text:#4b5263;
-  --std-track:#eef0f5; --hbar-lbl:#1a1e2b; --kpi-tbl-hd:#e8eaf0;
+  --pageW:1920px; --pageH:1080px; --bodyPad:48px;
+  --chart-track:#e8ecf2; --hbar-lbl:#0f1218; --kpi-tbl-hd:#e4e8ef;
+  --shadow: 0 2px 8px rgba(0,0,0,.10), 0 1px 2px rgba(0,0,0,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#2a2d35; transition:background .3s;}
-font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
+body{background:#2a2d35; font-family:'Barlow',sans-serif; font-size:14px; color:var(--dark);}
 
 /* ── PAGE SHELL ── */
 .page{
-  width:var(--pageW); min-height:var(--pageH);
+  width:100%; min-height:var(--pageH);
   background:var(--bg); display:none;
 }
 .page.active{display:block}
@@ -34,16 +33,16 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   padding:6px 20px; z-index:100;
 }
 .nav-btn{
-  font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700;
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700;
   letter-spacing:.06em; text-transform:uppercase;
-  padding:4px 12px; border:1px solid #444; border-radius:2px;
+  padding:8px 20px; border:1px solid #444; border-radius:2px;
   background:transparent; color:#888; cursor:pointer; transition:all .12s;
 }
 .nav-btn:hover{color:#fff; border-color:#777}
 .nav-btn.active{background:var(--jgr); border-color:var(--jgr); color:#000}
 .nav-prev,.nav-next{
-  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
-  padding:4px 14px; background:#333; border:none; color:#aaa; cursor:pointer; border-radius:2px;
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700;
+  padding:8px 16px; background:#333; border:none; color:#aaa; cursor:pointer; border-radius:2px;
 }
 .nav-prev:hover,.nav-next:hover{background:#555;color:#fff}
 .nav-spacer{flex:1}
@@ -51,14 +50,14 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
 /* ── SHARED COMPONENTS ── */
 .page-header{
   display:flex; align-items:flex-start; justify-content:space-between;
-  padding:32px 48px 24px; border-bottom:3px solid var(--jgr);
+  padding:24px 48px 20px; border-bottom:3px solid var(--jgr);
   background:var(--white);
 }
 .page-title{
-  font-family:'Barlow Condensed',sans-serif; font-size:52px; font-weight:800;
-  color:var(--dark); line-height:1; text-transform:uppercase; letter-spacing:-.01em;
+  font-family:'Barlow Condensed',sans-serif; font-size:56px; font-weight:900;
+  color:var(--dark); line-height:1; text-transform:uppercase; letter-spacing:-.02em;
 }
-.page-goals{ font-size:11px; color:var(--mid); line-height:1.7; max-width:380px; }
+.page-goals{ font-size:12px; color:var(--mid); line-height:1.65; max-width:440px; }
 .page-goals b{ color:var(--dark); font-weight:600; }
 .series-logo{
   font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:13px;
@@ -66,7 +65,7 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   opacity:.35; font-size:42px; line-height:1;
 }
 
-.body-area{ padding:28px 48px; }
+.body-area{ padding:24px 48px; }
 
 /* ── RESULT KPI TABLE ── */
 .kpi-summary-table{
@@ -75,14 +74,14 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.08);
 }
 .kpi-summary-table th{
-  background:#e8eaf0; font-family:'Barlow Condensed',sans-serif;
-  font-size:13px; font-weight:700; padding:12px 20px;
-  text-align:center; letter-spacing:.04em; text-transform:uppercase;
+  background:var(--kpi-tbl-hd); font-family:'Barlow Condensed',sans-serif;
+  font-size:13px; font-weight:800; padding:13px 24px;
+  text-align:center; letter-spacing:.06em; text-transform:uppercase;
   color:var(--dark); border-bottom:2px solid var(--border);
 }
 .kpi-summary-table th:first-child{text-align:left}
 .kpi-summary-table td{
-  padding:11px 20px; font-size:13px; text-align:center;
+  padding:13px 24px; font-size:15px; text-align:center;
   border-bottom:1px solid var(--border); vertical-align:middle;
 }
 .kpi-summary-table td:first-child{
@@ -90,8 +89,8 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
 }
 .kpi-summary-table tr:last-child td{border-bottom:none}
 .kpi-summary-table tr:hover td{background:rgba(0,0,0,.02)}
-.kpi-val{font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; color:var(--dark)}
-.kpi-sub{font-size:10px; color:var(--muted); margin-top:2px}
+.kpi-val{font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:800; color:var(--dark)}
+.kpi-sub{font-size:11px; color:var(--muted); margin-top:3px; letter-spacing:.01em}
 .pace-val{
   font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:600;
   color:var(--mid); font-style:italic;
@@ -112,7 +111,7 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
 }
 .rr-table th.car-hd{font-size:14px; font-weight:900; color:#fff; padding:10px 14px}
 .rr-table td{
-  padding:7px 10px; font-family:'Barlow Condensed',sans-serif; font-size:13px;
+  padding:8px 10px; font-family:'Barlow Condensed',sans-serif; font-size:14px;
   font-weight:500; text-align:center; border-bottom:1px solid var(--border);
   vertical-align:middle;
 }
@@ -127,13 +126,13 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:16px; color:#fff;
 }
 .rr-race-lbl{
-  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
   color:var(--mid); letter-spacing:.05em; text-transform:uppercase;
 }
 .fin-chip{
   display:inline-flex; align-items:center; justify-content:center;
-  width:32px; height:20px; border-radius:3px;
-  font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:13px;
+  width:34px; height:22px; border-radius:3px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:15px;
 }
 .fc-win{background:#d97706; color:#fff}
 .fc-t5{background:rgba(22,163,74,.15); color:#16a34a}
@@ -151,26 +150,26 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   margin-top:0;
 }
 .chart-box{
-  background:var(--white); border-radius:6px; padding:20px 24px;
-  box-shadow:0 1px 4px rgba(0,0,0,.08);
+  background:var(--white); border-radius:8px; padding:22px 28px;
+  box-shadow:var(--shadow); border:1px solid var(--border);
 }
 .chart-title{
-  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
-  letter-spacing:.08em; text-transform:uppercase; color:var(--mid);
-  margin-bottom:4px;
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:800;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--dark);
+  margin-bottom:5px;
 }
-.chart-sub{ font-size:10px; color:var(--muted); margin-bottom:14px; }
+.chart-sub{ font-size:11px; color:var(--muted); margin-bottom:16px; letter-spacing:.01em; }
 
 .hbar-row{display:flex; align-items:center; gap:10px; margin-bottom:6px}
 .hbar-lbl{
   font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
   width:140px; flex-shrink:0; text-align:right; color:var(--dark);
 }
-.hbar-track{flex:1; height:18px; background:#eef0f5; border-radius:3px; overflow:hidden; position:relative}
+.hbar-track{flex:1; height:22px; background:var(--chart-track); border-radius:4px; overflow:hidden; position:relative}
 .hbar-fill{height:100%; border-radius:3px; display:flex; align-items:center; padding-left:6px}
 .hbar-val{
-  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
-  width:28px; flex-shrink:0; color:var(--dark);
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
+  width:34px; flex-shrink:0; color:var(--dark);
 }
 .hbar-diamond{
   position:absolute; top:50%; transform:translateY(-50%);
@@ -185,8 +184,8 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
 /* ── POINTS STANDINGS ── */
 .standings-2col{display:grid; grid-template-columns:1fr 1fr; gap:28px}
 .std-chart-box{
-  background:var(--white); border-radius:6px; padding:20px 24px;
-  box-shadow:0 1px 4px rgba(0,0,0,.08);
+  background:var(--white); border-radius:8px; padding:22px 28px;
+  box-shadow:var(--shadow); border:1px solid var(--border);
 }
 .std-title{
   font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
@@ -203,7 +202,7 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   width:30px; height:18px; border-radius:2px; flex-shrink:0;
   font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:12px;
 }
-.std-name{font-size:12px; flex-shrink:0; width:110px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.std-name{font-size:13px; font-weight:500; flex-shrink:0; width:120px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .std-bar-track{flex:1; height:14px; background:#eef0f5; border-radius:2px; overflow:hidden; position:relative}
 .std-bar-fill{height:100%; border-radius:2px}
 .std-bar-stage{position:absolute; right:0; top:0; bottom:0; background:rgba(0,0,0,.12); border-radius:0 2px 2px 0}
@@ -214,8 +213,8 @@ font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
   width:28px; text-align:center;
 }
 .std-pts{
-  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
-  width:34px; text-align:right; flex-shrink:0;
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:800;
+  width:38px; text-align:right; flex-shrink:0;
 }
 .playoff-cutline{
   border-top:2px dashed rgba(211,57,57,.5)!important;
@@ -252,6 +251,73 @@ body.dark .rr-table th { background:#1a1e2b !important; }
 body.dark .rr-table td { border-bottom-color:#252a38 !important; }
 body.dark .hbar-val, body.dark .kpi-val { color:#e8eaf0 !important; }
 body.dark .page-header { border-bottom-color:#d4a017 !important; }
+
+.chart-2col{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
+.chart-full{grid-column:1/-1;}
+@media(max-width:768px){.chart-2col{display:block;}}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 768px) {
+
+  /* Page shell */
+  .page { min-height: unset; }
+  .body-area { padding: 16px 16px 80px; }
+
+  /* Header */
+  .page-header { padding: 16px 16px 14px; flex-wrap: wrap; gap: 8px; }
+  .page-title { font-size: 32px; }
+  .page-goals { font-size: 11px; max-width: 100%; }
+  .series-logo { font-size: 28px; }
+
+  /* Nav */
+  .nav { padding: 6px 8px; gap: 3px; overflow-x: auto; flex-wrap: nowrap; }
+  .nav-btn { font-size: 11px; padding: 6px 10px; white-space: nowrap; }
+  .nav-prev, .nav-next { padding: 6px 10px; font-size: 12px; }
+  #theme-btn { font-size: 10px; padding: 4px 8px; }
+
+  /* KPI Table */
+  .kpi-summary-table th { font-size: 11px; padding: 10px 12px; }
+  .kpi-summary-table td { font-size: 13px; padding: 10px 12px; }
+  .kpi-val { font-size: 18px; }
+  .kpi-sub { font-size: 10px; }
+
+  /* Charts — single column */
+  .chart-section,
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"] {
+    display: block !important;
+  }
+  .chart-box { margin-bottom: 12px; padding: 14px 16px; }
+  [style*="grid-column:1/-1"] { grid-column: unset !important; }
+
+  /* Bar charts */
+  .hbar-lbl { font-size: 11px; width: 110px; }
+  .hbar-track { height: 18px; }
+  .hbar-val { font-size: 11px; width: 28px; }
+  .hbar-row { margin-bottom: 5px; }
+
+  /* Race results — horizontal scroll */
+  .rr-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .rr-table { min-width: 900px; }
+
+  /* Standings — single column */
+  .standings-2col { grid-template-columns: 1fr !important; gap: 12px; }
+  .std-chart-box { padding: 14px 16px; }
+  .std-name { width: 90px; font-size: 12px; }
+  .std-pts { font-size: 12px; }
+  .std-cnum { width: 26px; height: 16px; font-size: 11px; }
+
+  /* Page num */
+  .page-num { font-size: 10px; top: 10px; right: 16px; }
+}
+
+@media (max-width: 480px) {
+  .page-title { font-size: 26px; }
+  .page-header { padding: 12px 12px 10px; }
+  .body-area { padding: 12px 12px 80px; }
+  .hbar-lbl { width: 90px; font-size: 10px; }
+  .nav-btn { font-size: 10px; padding: 5px 8px; }
+}
 </style>
 </head>
 <body>
@@ -407,7 +473,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="series-logo">JGR</div>
 </div>
 <div class="body-area">
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+  <div class="chart-2col">
 
     <!-- JGR wins by season (top left) -->
     <div class="chart-box">
@@ -424,7 +490,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
     </div>
 
     <!-- Wins by org (bottom, wide) -->
-    <div class="chart-box" style="grid-column:1/-1">
+    <div class="chart-box" class="chart-full">
       <div class="chart-title">NASCAR O'Reilly Auto Parts Series: Race Wins By Organization</div>
       <div class="chart-sub">2026 Season – Through 10 Races</div>
       <div id="wins-org-chart"></div>
@@ -449,7 +515,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="series-logo">JGR</div>
 </div>
 <div class="body-area">
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+  <div class="chart-2col">
     <div class="chart-box">
       <div class="chart-title">JGR NOAPS: Total Race Durations Led by Season</div>
       <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
@@ -460,7 +526,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
       <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations Led · ◆ = Win Conversion Rate</div>
       <div id="led-car-chart"></div>
     </div>
-    <div class="chart-box" style="grid-column:1/-1">
+    <div class="chart-box" class="chart-full">
       <div class="chart-title">NOAPS: Race Durations Led By Organization</div>
       <div class="chart-sub">2026 Season – Through 10 Races</div>
       <div id="led-org-chart"></div>
@@ -485,7 +551,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="series-logo">JGR</div>
 </div>
 <div class="body-area">
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+  <div class="chart-2col">
     <div class="chart-box">
       <div class="chart-title">JGR NOAPS: Total Race Durations in Top 5 by Season</div>
       <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
@@ -496,7 +562,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
       <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations in T5 · ◆ = Win Conversion Rate</div>
       <div id="t5-car-chart"></div>
     </div>
-    <div class="chart-box" style="grid-column:1/-1">
+    <div class="chart-box" class="chart-full">
       <div class="chart-title">NOAPS: Race Durations in Top 5 By Organization</div>
       <div class="chart-sub">2026 Season – Through 10 Races</div>
       <div id="t5-org-chart"></div>
