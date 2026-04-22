@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JGR O'Reilly Auto Parts Series — 2026 KPI Report</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#f4f5f7; --white:#ffffff; --dark:#1a1e2b; --mid:#4b5263; --muted:#9099ad;
+  --border:#dde1e9; --accent:#6b21e8; --jgr:#d4a017;
+  --c18:#7c3aed; --c19:#f97316; --c20:#ef4444; --c54:#22c55e;
+  --good:#16a34a; --warn:#d97706; --bad:#dc2626;
+  --pageW:1920px; --pageH:1080px;
+  /* chart internals */
+  --chart-bg:#ffffff; --chart-track:#eef0f5; --chart-text:#4b5263;
+  --std-track:#eef0f5; --hbar-lbl:#1a1e2b; --kpi-tbl-hd:#e8eaf0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#2a2d35; transition:background .3s;}
+font-family:'Barlow',sans-serif;font-size:13px;color:var(--dark)}
+
+/* ── PAGE SHELL ── */
+.page{
+  width:var(--pageW); min-height:var(--pageH);
+  background:var(--bg); display:none;
+}
+.page.active{display:block}
+
+/* ── SLIDE NAV ── */
+.nav{
+  position:fixed; bottom:0; left:0; right:0;
+  background:#1a1e2b; transition:background .3s; border-top:1px solid #333;
+  display:flex; align-items:center; gap:4px;
+  padding:6px 20px; z-index:100;
+}
+.nav-btn{
+  font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:4px 12px; border:1px solid #444; border-radius:2px;
+  background:transparent; color:#888; cursor:pointer; transition:all .12s;
+}
+.nav-btn:hover{color:#fff; border-color:#777}
+.nav-btn.active{background:var(--jgr); border-color:var(--jgr); color:#000}
+.nav-prev,.nav-next{
+  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
+  padding:4px 14px; background:#333; border:none; color:#aaa; cursor:pointer; border-radius:2px;
+}
+.nav-prev:hover,.nav-next:hover{background:#555;color:#fff}
+.nav-spacer{flex:1}
+
+/* ── SHARED COMPONENTS ── */
+.page-header{
+  display:flex; align-items:flex-start; justify-content:space-between;
+  padding:32px 48px 24px; border-bottom:3px solid var(--jgr);
+  background:var(--white);
+}
+.page-title{
+  font-family:'Barlow Condensed',sans-serif; font-size:52px; font-weight:800;
+  color:var(--dark); line-height:1; text-transform:uppercase; letter-spacing:-.01em;
+}
+.page-goals{ font-size:11px; color:var(--mid); line-height:1.7; max-width:380px; }
+.page-goals b{ color:var(--dark); font-weight:600; }
+.series-logo{
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:13px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--jgr);
+  opacity:.35; font-size:42px; line-height:1;
+}
+
+.body-area{ padding:28px 48px; }
+
+/* ── RESULT KPI TABLE ── */
+.kpi-summary-table{
+  width:100%; border-collapse:collapse;
+  background:var(--white); border-radius:6px;
+  overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.kpi-summary-table th{
+  background:#e8eaf0; font-family:'Barlow Condensed',sans-serif;
+  font-size:13px; font-weight:700; padding:12px 20px;
+  text-align:center; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--dark); border-bottom:2px solid var(--border);
+}
+.kpi-summary-table th:first-child{text-align:left}
+.kpi-summary-table td{
+  padding:11px 20px; font-size:13px; text-align:center;
+  border-bottom:1px solid var(--border); vertical-align:middle;
+}
+.kpi-summary-table td:first-child{
+  text-align:left; font-weight:600; color:var(--mid); font-size:12px;
+}
+.kpi-summary-table tr:last-child td{border-bottom:none}
+.kpi-summary-table tr:hover td{background:rgba(0,0,0,.02)}
+.kpi-val{font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:800; color:var(--dark)}
+.kpi-sub{font-size:10px; color:var(--muted); margin-top:2px}
+.pace-val{
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:600;
+  color:var(--mid); font-style:italic;
+}
+.tbd{color:var(--muted); font-style:italic; font-size:13px}
+.kpi-behind{color:var(--bad)}
+.kpi-on{color:var(--warn)}
+.kpi-ahead{color:var(--good)}
+
+/* ── RACE RESULTS TABLE (slide 2) ── */
+.rr-wrap{background:var(--white); border-radius:6px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rr-table{width:100%; border-collapse:collapse}
+.rr-table th{
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase; padding:8px 10px;
+  text-align:center; color:var(--mid); border-bottom:2px solid var(--border);
+  background:#e8eaf0;
+}
+.rr-table th.car-hd{font-size:14px; font-weight:900; color:#fff; padding:10px 14px}
+.rr-table td{
+  padding:7px 10px; font-family:'Barlow Condensed',sans-serif; font-size:13px;
+  font-weight:500; text-align:center; border-bottom:1px solid var(--border);
+  vertical-align:middle;
+}
+.rr-table tr:last-child td{border-bottom:none}
+.car-col-18{background:rgba(232,160,32,.08)!important}
+.car-col-19{background:rgba(37,99,235,.08)!important}
+.car-col-20{background:rgba(22,163,74,.08)!important}
+.car-col-54{background:rgba(220,38,38,.08)!important}
+.car-num-badge{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:22px; border-radius:3px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:16px; color:#fff;
+}
+.rr-race-lbl{
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  color:var(--mid); letter-spacing:.05em; text-transform:uppercase;
+}
+.fin-chip{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:32px; height:20px; border-radius:3px;
+  font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:13px;
+}
+.fc-win{background:#d97706; color:#fff}
+.fc-t5{background:rgba(22,163,74,.15); color:#16a34a}
+.fc-t10{background:rgba(37,99,235,.12); color:#1d4ed8}
+.fc-other{background:#e8eaf0; color:var(--mid)}
+.fc-dns{background:#e8eaf0; color:var(--muted); font-size:10px; font-style:italic}
+.fc-sub{background:rgba(232,160,32,.15); color:var(--warn); font-size:10px}
+.pct-bar-cell{display:flex; align-items:center; gap:6px}
+.pct-bar{height:7px; border-radius:3px; flex-shrink:0}
+.pct-val{font-size:12px; font-weight:600; color:var(--mid)}
+
+/* ── BAR CHARTS (wins, poles, races led, t5) ── */
+.chart-section{
+  display:grid; gap:24px;
+  margin-top:0;
+}
+.chart-box{
+  background:var(--white); border-radius:6px; padding:20px 24px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.chart-title{
+  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--mid);
+  margin-bottom:4px;
+}
+.chart-sub{ font-size:10px; color:var(--muted); margin-bottom:14px; }
+
+.hbar-row{display:flex; align-items:center; gap:10px; margin-bottom:6px}
+.hbar-lbl{
+  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
+  width:140px; flex-shrink:0; text-align:right; color:var(--dark);
+}
+.hbar-track{flex:1; height:18px; background:#eef0f5; border-radius:3px; overflow:hidden; position:relative}
+.hbar-fill{height:100%; border-radius:3px; display:flex; align-items:center; padding-left:6px}
+.hbar-val{
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  width:28px; flex-shrink:0; color:var(--dark);
+}
+.hbar-diamond{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:10px; height:10px; border-radius:2px; rotate:45deg;
+  background:var(--dark);
+}
+.goal-line{
+  position:absolute; top:0; bottom:0; width:2px;
+  background:rgba(107,33,232,.4);
+}
+
+/* ── POINTS STANDINGS ── */
+.standings-2col{display:grid; grid-template-columns:1fr 1fr; gap:28px}
+.std-chart-box{
+  background:var(--white); border-radius:6px; padding:20px 24px;
+  box-shadow:0 1px 4px rgba(0,0,0,.08);
+}
+.std-title{
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--mid); margin-bottom:4px;
+}
+.std-sub{font-size:10px; color:var(--muted); margin-bottom:12px}
+.std-row{display:flex; align-items:center; gap:8px; margin-bottom:4px}
+.std-pos{
+  font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700;
+  color:var(--muted); width:18px; text-align:right; flex-shrink:0;
+}
+.std-cnum{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:30px; height:18px; border-radius:2px; flex-shrink:0;
+  font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:12px;
+}
+.std-name{font-size:12px; flex-shrink:0; width:110px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.std-bar-track{flex:1; height:14px; background:#eef0f5; border-radius:2px; overflow:hidden; position:relative}
+.std-bar-fill{height:100%; border-radius:2px}
+.std-bar-stage{position:absolute; right:0; top:0; bottom:0; background:rgba(0,0,0,.12); border-radius:0 2px 2px 0}
+.std-org-tag{
+  font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:800;
+  letter-spacing:.06em; text-transform:uppercase;
+  padding:1px 5px; border-radius:2px; flex-shrink:0;
+  width:28px; text-align:center;
+}
+.std-pts{
+  font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700;
+  width:34px; text-align:right; flex-shrink:0;
+}
+.playoff-cutline{
+  border-top:2px dashed rgba(211,57,57,.5)!important;
+  margin-top:2px; padding-top:4px!important;
+}
+.playoff-cutline-lbl{
+  font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:#7c3aed;
+  margin:3px 0 4px 26px; opacity:.9;
+}
+
+/* JGR highlighted row */
+.jgr-std{background:rgba(212,160,23,.09); border-radius:3px}
+
+/* page number */
+.page-num{
+  position:fixed; top:18px; right:48px; z-index:50;
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:.1em; color:var(--muted); opacity:.6;
+}
+
+/* ── DARK MODE ── */
+body.dark { background:#050608 !important; }
+body.dark .page { background:#0d0f14; }
+body.dark .page-header, body.dark .chart-box, body.dark .std-chart-box,
+body.dark .kpi-summary-table, body.dark .rr-wrap { background:#141720 !important; }
+body.dark .page-title, body.dark .std-name, body.dark .hbar-lbl { color:#e8eaf0 !important; }
+body.dark .page-goals, body.dark .chart-title, body.dark .chart-sub,
+body.dark .kpi-summary-table td, body.dark .rr-race-lbl { color:#9099ad !important; }
+body.dark .hbar-track, body.dark .std-bar-track { background:#252a38 !important; }
+body.dark .kpi-summary-table th { background:#1a1e2b !important; color:#9099ad !important; }
+body.dark .kpi-summary-table td { border-bottom-color:#252a38 !important; }
+body.dark .rr-table th { background:#1a1e2b !important; }
+body.dark .rr-table td { border-bottom-color:#252a38 !important; }
+body.dark .hbar-val, body.dark .kpi-val { color:#e8eaf0 !important; }
+body.dark .page-header { border-bottom-color:#d4a017 !important; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 1 — RESULT KPI SUMMARY
+═══════════════════════════════════════════════════════ -->
+<div class="page active" id="p1">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Result KPI Summary</div>
+    <div style="margin-top:12px" class="page-goals">
+      <div>Goal: Win the NOAPS Driver and Owner Championships</div>
+      <div>Goal: All 4 JGR Drivers/Teams in the top 12 in points &amp; qualifying for the playoffs</div>
+      <div>Goal: 10 total wins for the organization</div>
+      <div>Goal: At least 10 poles for the organization</div>
+      <div>Goal: 5 race durations led for the organization</div>
+      <div>Goal: Conversion rate of 1.25 Wins per race duration led</div>
+      <div>Goal: 20 race durations spent in the Top 5 for the organization</div>
+      <div>Goal: Conversion rate of .25 Wins per race duration in the Top 5</div>
+    </div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <table class="kpi-summary-table">
+    <thead>
+      <tr>
+        <th style="width:260px">Metric</th>
+        <th style="width:220px">2026 Performance</th>
+        <th style="width:220px">2026 Goals <em>(Pace)</em></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Championship</td>
+        <td><span class="tbd">TBD</span></td>
+        <td><span class="kpi-val">1</span></td>
+      </tr>
+      <tr>
+        <td>Cars in Top 12 (Playoffs)</td>
+        <td>
+          <span class="kpi-val kpi-ahead">3</span>
+          <div class="kpi-sub">#20 P5 · #54 P9 · #18 P10 — #19 P16</div>
+        </td>
+        <td><span class="kpi-val">4</span></td>
+      </tr>
+      
+      <tr>
+        <td>Wins</td>
+        <td>
+          <span class="kpi-val kpi-behind">2</span>
+          <div class="kpi-sub">#18 Rockingham · #54 Kansas</div>
+        </td>
+        <td><span class="kpi-val">10 <span class="pace-val">(3.3)</span></span></td>
+      </tr>
+      <tr>
+        <td>Poles</td>
+        <td>
+          <span class="kpi-val kpi-behind">2</span>
+          <div class="kpi-sub">#18 Bristol · #54 Phoenix</div>
+        </td>
+        <td><span class="kpi-val">10 <span class="pace-val">(3.3)</span></span></td>
+      </tr>
+      <tr>
+        <td>Races Led (Race Durations)</td>
+        <td>
+          <span class="kpi-val kpi-behind">1.53</span>
+          <div class="kpi-sub">#18: 0.46 · #19: 0.21 · #20: 0.43 · #54: 0.43</div>
+        </td>
+        <td><span class="kpi-val">5 <span class="pace-val">(1.67)</span></span></td>
+      </tr>
+      <tr>
+        <td>Wins / Races Led</td>
+        <td>
+          <span class="kpi-val kpi-on">1.31</span>
+          <div class="kpi-sub">#18: 2.19 · #54: 2.32 · #19/20: 0.00</div>
+        </td>
+        <td><span class="kpi-val">1.25</span></td>
+      </tr>
+      <tr>
+        <td>Races in Top 5 (Race Durations)</td>
+        <td>
+          <span class="kpi-val kpi-behind">10.29</span>
+          <div class="kpi-sub">#18: 1.69 · #19: 2.34 · #20: 3.68 · #54: 2.59</div>
+        </td>
+        <td><span class="kpi-val">20 <span class="pace-val">(6.67)</span></span></td>
+      </tr>
+      <tr>
+        <td>Wins / Races in T5</td>
+        <td>
+          <span class="kpi-val kpi-behind">0.19</span>
+          <div class="kpi-sub">#18: 0.59 · #54: 0.39 · #19/20: 0.00</div>
+        </td>
+        <td><span class="kpi-val">0.25</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 2 — RACE RESULTS (R10 Kansas)
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="p2" style="display:none">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Race Results</div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <div class="rr-wrap">
+    <table class="rr-table">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:120px">Race</th>
+          <th style="text-align:left; width:160px">Track</th>
+          <th colspan="6" class="car-hd" style="background:var(--c18)">#18 Sawalich</th>
+          <th colspan="6" class="car-hd" style="background:var(--c19)">#19 Crews</th>
+          <th colspan="6" class="car-hd" style="background:var(--c20)">#20 Jones</th>
+          <th colspan="6" class="car-hd" style="background:var(--c54)">#54 Gray</th>
+        </tr>
+        <tr>
+          <th style="text-align:left"></th>
+          <th style="text-align:left"></th>
+          <th>Qual</th><th>S1</th><th>S2</th><th>Fin</th><th>%Led</th><th>%T5</th>
+          <th>Qual</th><th>S1</th><th>S2</th><th>Fin</th><th>%Led</th><th>%T5</th>
+          <th>Qual</th><th>S1</th><th>S2</th><th>Fin</th><th>%Led</th><th>%T5</th>
+          <th>Qual</th><th>S1</th><th>S2</th><th>Fin</th><th>%Led</th><th>%T5</th>
+        </tr>
+      </thead>
+      <tbody id="rr-tbody"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 3 — RACE WINS
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="p3" style="display:none">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Race Wins</div>
+    <div style="margin-top:10px" class="page-goals">
+      <div>Goal: 10 total wins for the organization</div>
+    </div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+
+    <!-- JGR wins by season (top left) -->
+    <div class="chart-box">
+      <div class="chart-title">JGR NOAPS: Race Wins By Season</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div id="wins-season-chart"></div>
+    </div>
+
+    <!-- Wins by car (top right) -->
+    <div class="chart-box">
+      <div class="chart-title">NASCAR O'Reilly Auto Parts Series: Race Wins By Driver</div>
+      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div id="wins-car-chart"></div>
+    </div>
+
+    <!-- Wins by org (bottom, wide) -->
+    <div class="chart-box" style="grid-column:1/-1">
+      <div class="chart-title">NASCAR O'Reilly Auto Parts Series: Race Wins By Organization</div>
+      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div id="wins-org-chart"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 4 — RACES LED
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="p4" style="display:none">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Races Led</div>
+    <div style="margin-top:10px" class="page-goals">
+      <div>Goal: 5 race durations led for the organization</div>
+      <div>Goal: Conversion rate of 1.25 Wins per race duration led</div>
+    </div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+    <div class="chart-box">
+      <div class="chart-title">JGR NOAPS: Total Race Durations Led by Season</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div id="led-season-chart"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">NOAPS: Race Durations Led By Car</div>
+      <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations Led · ◆ = Win Conversion Rate</div>
+      <div id="led-car-chart"></div>
+    </div>
+    <div class="chart-box" style="grid-column:1/-1">
+      <div class="chart-title">NOAPS: Race Durations Led By Organization</div>
+      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div id="led-org-chart"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 5 — RACES IN TOP 5
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="p5" style="display:none">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Races in Top 5</div>
+    <div style="margin-top:10px" class="page-goals">
+      <div>Goal: 20 race durations spent in the Top 5 for the organization</div>
+      <div>Goal: Conversion rate of .25 Wins per race duration in the Top 5</div>
+    </div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+    <div class="chart-box">
+      <div class="chart-title">JGR NOAPS: Total Race Durations in Top 5 by Season</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div id="t5-season-chart"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">NOAPS: Race Durations in Top 5 By Car</div>
+      <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations in T5 · ◆ = Win Conversion Rate</div>
+      <div id="t5-car-chart"></div>
+    </div>
+    <div class="chart-box" style="grid-column:1/-1">
+      <div class="chart-title">NOAPS: Race Durations in Top 5 By Organization</div>
+      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div id="t5-org-chart"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE 6 — POINTS STANDINGS
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="p6" style="display:none">
+<div class="page-num">26NOS1</div>
+<div class="page-header">
+  <div>
+    <div class="page-title">Points Standings</div>
+    <div style="margin-top:10px" class="page-goals">
+      <div>Goal: Win the NOAPS Driver and Owner Championships</div>
+      <div>Goal: All 4 JGR Drivers/Teams in the top 12 in the points standings &amp; qualifying for the playoffs</div>
+    </div>
+  </div>
+  <div class="series-logo">JGR</div>
+</div>
+<div class="body-area">
+  <div class="standings-2col">
+    <div class="std-chart-box">
+      <div class="std-title">NASCAR O'Reilly Auto Parts Series: Points Standings (Driver)</div>
+      <div class="std-sub">2026 Season – Through 10 Races; Gray shaded area indicates Stage Points earned</div>
+      <div id="std-driver"></div>
+    </div>
+    <div class="std-chart-box">
+      <div class="std-title">NASCAR O'Reilly Auto Parts Series: Points Standings (Owner)</div>
+      <div class="std-sub">2026 Season – Through 10 Races; Gray shaded area indicates Stage Points earned</div>
+      <div id="std-owner"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="nav">
+  <button class="nav-prev" onclick="changePage(-1)">◀</button>
+  <button class="nav-btn active" onclick="goPage(1,this)">KPI Summary</button>
+  <button class="nav-btn" onclick="goPage(2,this)">Race Results</button>
+  <button class="nav-btn" onclick="goPage(3,this)">Race Wins</button>
+  <button class="nav-btn" onclick="goPage(4,this)">Races Led</button>
+  <button class="nav-btn" onclick="goPage(5,this)">Races in Top 5</button>
+  <button class="nav-btn" onclick="goPage(6,this)">Points Standings</button>
+  <div class="nav-spacer"></div>
+  <button id="theme-btn" onclick="toggleTheme()" style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border:1px solid #555;border-radius:2px;background:transparent;color:#aaa;cursor:pointer;margin-right:8px">☾ Dark</button>
+  <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#555">JGR Internal · NOAPS 2026 · Through R10 Kansas</span>
+  <button class="nav-next" onclick="changePage(1)">▶</button>
+</div>
+
+<script>
+// ── NAV ──────────────────────────────────────────────────────────────────
+let curPage = 1;
+const TOTAL_PAGES = 6;
+function goPage(n, btn) {
+  for(let i=1;i<=6;i++){
+    const p=document.getElementById('p'+i);
+    if(p) p.style.display = (i===n)?'block':'none';
+  }
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+    b.classList.toggle('active', i===n-1);
+  });
+  curPage = n;
+}
+function changePage(d) {
+  const n = Math.max(1, Math.min(TOTAL_PAGES, curPage + d));
+  goPage(n);
+}
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowRight') changePage(1);
+  if(e.key==='ArrowLeft')  changePage(-1);
+});
+
+function toggleTheme() {
+  const dark = document.body.classList.toggle('dark');
+  document.getElementById('theme-btn').textContent = dark ? '☀ Light' : '☾ Dark';
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+const RACES = [
+  {r:1,  n:'United Rentals 300',         t:'Daytona',       short:'DAY'},
+  {r:2,  n:'Bennett Transportation 250', t:'Atlanta',        short:'ATL'},
+  {r:3,  n:'Focused Health 250',         t:'COTA',           short:'COTA'},
+  {r:4,  n:'GOVX 200',                   t:'Phoenix',        short:'PHX'},
+  {r:5,  n:'The LiUNA',                  t:'Las Vegas',      short:'LVS'},
+  {r:6,  n:'Sport Clips VFW 200',        t:'Darlington',     short:'DAR'},
+  {r:7,  n:'NFPA 250',                   t:'Martinsville',   short:'MAR'},
+  {r:8,  n:'NC Education Lottery 250',   t:'Rockingham',     short:'ROC'},
+  {r:9,  n:'Suburban Propane 300',       t:'Bristol',        short:'BRI'},
+  {r:10, n:'Kansas Lottery 300',         t:'Kansas',         short:'KAN'},
+];
+
+// DNS: truly no car on track for Crews. SUB: ineligible sub driver ran the car.
+const IS_DNS = {19: new Set([0,1,4,5])};
+const IS_SUB = {19: new Set([])};
+
+const QUAL  = {'18':[4,5,4,15,11,7,3,14,1,7],   '19':[null,null,7,5,null,null,4,10,17,5],  '20':[15,10,15,3,5,8,3,8,4,14],   '54':[9,3,14,1,6,6,13,6,6,10]};
+const S1    = {'18':[7,18,12,16,14,8,10,5,6,30], '19':[null,null,20,8,3,2,4,8,14,8],       '20':[10,13,4,10,10,4,2,3,5,1],    '54':[12,4,29,12,4,19,21,2,21,6]};
+const S2    = {'18':[4,16,15,14,12,10,5,2,6,19], '19':[null,null,11,5,2,9,14,4,5,12],      '20':[13,5,8,12,11,3,28,5,7,1],    '54':[14,12,14,8,3,21,3,13,15,7]};
+const FIN   = {'18':[26,23,7,37,9,17,20,1,7,20], '19':[null,null,6,18,null,null,10,26,3,5],'20':[30,10,15,16,13,2,18,2,19,8], '54':[28,9,12,15,37,15,13,7,10,1]};
+const PCT_LED={'18':[1.6,3.1,0,0,0,0,0,32.0,9.0,0], '19':[0,0,7.7,0,1.0,0,0,12.1,1.0,0], '20':[0.8,0,0,0,2.0,5.4,0.8,0,0.7,33.5], '54':[0,1.2,0,5.0,14.2,0,0,2.4,0,24.0]};
+const PCT_T5 ={'18':[38.0,19.9,10.8,0,22.5,22.4,24.8,69.2,51.7,14.1],'19':[0,0,52.3,27.5,0,0,42.4,38.7,38.7,25.5],'20':[25.8,38.7,35.4,23.5,38.5,51.0,29.2,46.8,24.3,47.5],'54':[20.2,29.4,18.5,28.5,58.8,13.6,21.6,40.4,24.3,51.5]};
+const TOTAL_PTS={'18':[22,14,30,1,28,24,24,71,40,17],'19':[0,0,31,28,0,0,34,21,41,35],'20':[8,33,32,22,25,50,28,49,28,49],'54':[9,35,25,25,16,22,32,39,27,64]};
+const STAGE_PTS={'18':[0,0,0,0,0,0,0,10,5,0],'19':[0,0,0,0,0,0,0,0,0,0],'20':[0,0,0,0,0,0,0,0,5,9],'54':[0,0,0,0,0,0,0,5,0,5]};
+const BONUS_PTS={'18':[0,0,0,0,0,0,0,1,0,0],'19':[0,0,0,0,0,0,0,0,1,0],'20':[0,0,0,0,0,0,0,0,0,0],'54':[0,0,0,0,0,0,0,0,0,1]};
+
+const CAR_COLORS = {'18':'#7c3aed','19':'#f97316','20':'#ef4444','54':'#22c55e'};
+const CAR_CSS    = {'18':'--c18','19':'--c19','20':'--c20','54':'--c54'};
+
+// Season-level computed
+const SEASON = {
+  '18':{pts:271, starts:10, wins:1, rdl:0.457, rdt5:1.685, convLed:2.19, convT5:0.59},
+  '19':{pts:190, starts:6,  wins:0, rdl:0.207, rdt5:2.337, convLed:0,    convT5:0},
+  '20':{pts:324, starts:10, wins:0, rdl:0.432, rdt5:3.678, convLed:0,    convT5:0},
+  '54':{pts:294, starts:10, wins:1, rdl:0.431, rdt5:2.590, convLed:2.32, convT5:0.39},
+};
+
+// ── PAGE 2: RACE RESULTS TABLE ─────────────────────────────────────────────
+(function(){
+  const tbody = document.getElementById('rr-tbody');
+  const CARS = ['18','19','20','54'];
+  RACES.forEach((race,ri) => {
+    const tr = document.createElement('tr');
+    let html = `<td class="rr-race-lbl">R${race.r}</td><td style="font-size:11px;color:var(--mid)">${race.t}</td>`;
+    CARS.forEach(c => {
+      const isDns = c==='19' && IS_DNS[19].has(ri);
+      const isSub = c==='19' && IS_SUB[19].has(ri);
+      const col   = `car-col-${c}`;
+      if(isDns){
+        html += `<td class="${col}" colspan="6" style="color:var(--muted);font-style:italic;font-size:11px">DNS</td>`;
+        return;
+      }
+      if(isSub){
+        html += `<td class="${col}" colspan="6" style="color:var(--warn);font-style:italic;font-size:11px">Sub Driver (ineligible)</td>`;
+        return;
+      }
+      const fin = FIN[c][ri];
+      const finCls = fin===1?'fc-win':fin<=5?'fc-t5':fin<=10?'fc-t10':'fc-other';
+      const pctL = PCT_LED[c][ri].toFixed(1);
+      const pctT = PCT_T5[c][ri].toFixed(1);
+      html += `
+        <td class="${col}">${QUAL[c][ri]??'—'}</td>
+        <td class="${col}">${S1[c][ri]??'—'}</td>
+        <td class="${col}">${S2[c][ri]??'—'}</td>
+        <td class="${col}"><span class="fin-chip ${finCls}">${fin===1?'1★':fin??'—'}</span></td>
+        <td class="${col}"><span style="font-size:11px;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:${parseFloat(pctL)>0?CAR_COLORS[c]:'var(--muted)'}">${pctL}%</span></td>
+        <td class="${col}"><span style="font-size:11px;font-family:'Barlow Condensed',sans-serif;font-weight:700;color:var(--mid)">${pctT}%</span></td>`;
+    });
+    tr.innerHTML = html;
+    tbody.appendChild(tr);
+  });
+
+  // Totals row
+  const totRow = document.createElement('tr');
+  totRow.style.cssText = 'background:#e8eaf0; font-weight:700; border-top:2px solid var(--border)';
+  let totHtml = `<td class="rr-race-lbl" style="color:var(--dark)">SEASON</td><td></td>`;
+  ['18','19','20','54'].forEach(c => {
+    const s = SEASON[c];
+    const rdlPct = (s.rdl/s.starts*100).toFixed(1);
+    const rdt5Pct = (s.rdt5/s.starts*100).toFixed(1);
+    const col = `car-col-${c}`;
+    totHtml += `
+      <td class="${col}">—</td><td class="${col}">—</td><td class="${col}">—</td>
+      <td class="${col}"><span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;color:${CAR_COLORS[c]}">${s.wins>0?s.wins+'W':'—'}</span></td>
+      <td class="${col}"><span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:${CAR_COLORS[c]}">${rdlPct}%</span></td>
+      <td class="${col}"><span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--mid)">${rdt5Pct}%</span></td>`;
+  });
+  totRow.innerHTML = totHtml;
+  tbody.appendChild(totRow);
+})();
+
+// ── HORIZONTAL BAR CHART HELPER ───────────────────────────────────────────
+function hbarChart(containerId, rows, maxVal, goalVal, goalLabel, showDiamond) {
+  // rows = [{label, val, color, highlight, diamondVal}]
+  const container = document.getElementById(containerId);
+  let html = '';
+  const trackW = 680; // reference width for pct calc
+  rows.forEach(row => {
+    const pct = Math.min(100, (row.val / maxVal) * 100);
+    const goalPct = goalVal ? Math.min(100, (goalVal / maxVal) * 100) : null;
+    const diamondPct = (row.diamondVal && maxVal) ? Math.min(100, (row.diamondVal / maxVal) * 100) : null;
+    const bold = row.highlight ? 'font-weight:800;color:var(--dark)' : '';
+    html += `<div class="hbar-row">
+      <div class="hbar-lbl" style="${bold}">${row.label}</div>
+      <div class="hbar-track" style="position:relative">
+        <div class="hbar-fill" style="width:${pct}%;background:${row.color||'#dde1e9'}">
+          ${row.val>0?'<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:11px;font-weight:700;color:rgba(0,0,0,.5)">'+(row.showVal!==false?row.val:'')+'</span>':''}
+        </div>
+        ${goalPct!==null?'<div class="goal-line" style="left:'+goalPct+'%"></div>':''}
+        ${diamondPct!==null?'<div class="hbar-diamond" style="left:calc('+diamondPct+'% - 5px);background:'+(row.color||'#888')+'"></div>':''}
+      </div>
+      <div class="hbar-val" style="${bold}">${row.val}${row.suffix||''}</div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+
+// ── PAGE 3: WINS ──────────────────────────────────────────────────────────
+hbarChart('wins-season-chart', [
+  {label:'2026', val:2,  color:'#d4a017', highlight:true},
+  {label:'2025', val:6,  color:'#c0c4cf'},
+  {label:'2024', val:11, color:'#c0c4cf'},
+  {label:'2023', val:11, color:'#c0c4cf'},
+  {label:'2022', val:8,  color:'#c0c4cf'},
+  {label:'2021', val:12, color:'#c0c4cf'},
+  {label:'2020', val:8,  color:'#c0c4cf'},
+], 13, 10, 'Goal');
+
+hbarChart('wins-car-chart', [
+  {label:'Allgaier (JRM)',    val:3, color:'#f97316'},
+  {label:'Sawalich (JGR)',    val:1, color:'#7c3aed', highlight:true},
+  {label:'Gray (JGR)',        val:1, color:'#7c3aed', highlight:true},
+  {label:'Hill (RCR)',        val:1, color:'#ef4444'},
+  {label:'Creed (HFT)',       val:1, color:'#eab308'},
+  {label:'Jones (JGR)',       val:0, color:'#7c3aed', highlight:true},
+  {label:'Crews (JGR)',       val:0, color:'#7c3aed', highlight:true},
+  {label:'Day (HMS)',         val:0, color:'#2563eb'},
+  {label:'Retzlaff (VIK)',    val:0, color:'#14b8a6'},
+], 4, null, null)
+
+hbarChart('wins-org-chart', [
+  {label:'JR Motorsports',         val:6, color:'#f97316'},
+  {label:'Joe Gibbs Racing',       val:2, color:'#7c3aed', highlight:true},
+  {label:'Richard Childress Rcg',  val:1, color:'#ef4444'},
+  {label:'Haas Factory Team',      val:1, color:'#eab308'},
+  {label:'Jordan Anderson Rcg',    val:0, color:'#84cc16'},
+  {label:'Hendrick Motorsports',   val:0, color:'#2563eb'},
+  {label:'Viking Motorsports',     val:0, color:'#14b8a6'},
+  {label:'Other',                  val:0, color:'#9ca3af'},
+], 7, 12, 'Goal');
+
+// ── PAGE 4: RACES LED ─────────────────────────────────────────────────────
+hbarChart('led-season-chart', [
+  {label:'2026', val:1.53,  color:'#d4a017', highlight:true},
+  {label:'2025', val:8.42,  color:'#c0c4cf'},
+  {label:'2024', val:9.11,  color:'#c0c4cf'},
+  {label:'2023', val:7.85,  color:'#c0c4cf'},
+  {label:'2022', val:10.42, color:'#c0c4cf'},
+  {label:'2021', val:8.98,  color:'#c0c4cf'},
+  {label:'2020', val:13.0,  color:'#c0c4cf'},
+], 14, 5, 'Goal');
+
+hbarChart('led-car-chart', [
+  {label:'#7 Allgaier (JRM)',  val:1.78, color:'#f97316', diamondVal:1.69},
+  {label:'#17 Day (HMS)',       val:0.64, color:'#2563eb'},
+  {label:'#18 Sawalich (JGR)', val:0.46, color:'#7c3aed', highlight:true, diamondVal:2.19},
+  {label:'#20 Jones (JGR)',    val:0.43, color:'#7c3aed', highlight:true, diamondVal:0},
+  {label:'#54 Gray (JGR)',     val:0.43, color:'#7c3aed', highlight:true, diamondVal:2.32},
+  {label:'#2 Love (RCR)',      val:0.40, color:'#ef4444'},
+  {label:'#1 Kvapil (JRM)',    val:0.29, color:'#fb923c'},
+  {label:'#00 Creed (HFT)',    val:0.22, color:'#eab308'},
+  {label:'#19 Crews (JGR)',    val:0.21, color:'#7c3aed', highlight:true, diamondVal:0},
+  {label:'#32 Caruth (JAR)',   val:0.17, color:'#84cc16'},
+  {label:'#96 Alfredo (VIK)',  val:0.03, color:'#14b8a6'},
+  {label:'#27 Burton (JAR)',   val:0.01, color:'#84cc16'},
+  {label:'#99 Retzlaff (VIK)', val:0.00, color:'#14b8a6'},
+  {label:'#31 Perkins (JAR)',  val:0.00, color:'#84cc16'},
+], 2.0, 1.25, 'Goal Conv');
+
+hbarChart('led-org-chart', [
+  {label:'JR Motorsports',        val:2.78, color:'#f97316'},
+  {label:'Joe Gibbs Racing',      val:1.53, color:'#7c3aed', highlight:true},
+  {label:'Hendrick Motorsports',  val:0.64, color:'#2563eb'},
+  {label:'Richard Childress Rcg', val:0.48, color:'#ef4444'},
+  {label:'Haas Factory Team',     val:0.22, color:'#eab308'},
+  {label:'Jordan Anderson Rcg',   val:0.18, color:'#84cc16'},
+  {label:'Other',                 val:0.25, color:'#9ca3af'},
+  {label:'Viking Motorsports',    val:0.03, color:'#14b8a6'},
+], 4.0, 5.0, 'Goal');
+
+// ── PAGE 5: RACES IN TOP 5 ────────────────────────────────────────────────
+hbarChart('t5-season-chart', [
+  {label:'2026', val:10.29, color:'#d4a017', highlight:true},
+  {label:'2025', val:38.60, color:'#c0c4cf'},
+  {label:'2024', val:43.82, color:'#c0c4cf'},
+  {label:'2023', val:41.42, color:'#c0c4cf'},
+  {label:'2022', val:38.13, color:'#c0c4cf'},
+  {label:'2021', val:49.92, color:'#c0c4cf'},
+  {label:'2020', val:45.86, color:'#c0c4cf'},
+], 55, 20, 'Goal');
+
+hbarChart('t5-car-chart', [
+  {label:'#7 Allgaier (JRM)',  val:4.32, color:'#f97316', diamondVal:0.69},
+  {label:'#2 Love (RCR)',      val:3.76, color:'#ef4444'},
+  {label:'#20 Jones (JGR)',    val:3.68, color:'#7c3aed', highlight:true, diamondVal:0},
+  {label:'#1 Kvapil (JRM)',    val:3.36, color:'#fb923c'},
+  {label:'#00 Creed (HFT)',    val:2.61, color:'#eab308'},
+  {label:'#54 Gray (JGR)',     val:2.59, color:'#7c3aed', highlight:true, diamondVal:0.39},
+  {label:'#19 Crews (JGR)',    val:2.34, color:'#7c3aed', highlight:true, diamondVal:0},
+  {label:'#17 Day (HMS)',       val:2.08, color:'#2563eb'},
+  {label:'#21 Hill (RCR)',     val:1.95, color:'#ef4444'},
+  {label:'#41 Mayer (HFT)',    val:1.82, color:'#eab308'},
+  {label:'#18 Sawalich (JGR)', val:1.69, color:'#7c3aed', highlight:true, diamondVal:0.59},
+  {label:'#99 Retzlaff (VIK)', val:0.51, color:'#14b8a6'},
+  {label:'#31 Perkins (JAR)',  val:0.29, color:'#84cc16'},
+  {label:'#32 Caruth (JAR)',   val:0.24, color:'#84cc16'},
+  {label:'#27 Burton (JAR)',   val:0.23, color:'#84cc16'},
+  {label:'#96 Alfredo (VIK)',  val:0.17, color:'#14b8a6'},
+], 5.0, 5.0, 'Goal/car');
+
+hbarChart('t5-org-chart', [
+  {label:'JR Motorsports',        val:13.72, color:'#f97316'},
+  {label:'Joe Gibbs Racing',      val:10.29, color:'#7c3aed', highlight:true},
+  {label:'Richard Childress Rcg', val:5.71,  color:'#ef4444'},
+  {label:'Haas Factory Team',     val:4.43,  color:'#eab308'},
+  {label:'Other',                 val:3.80,  color:'#9ca3af'},
+  {label:'Hendrick Motorsports',  val:2.08,  color:'#2563eb'},
+  {label:'Jordan Anderson Rcg',   val:0.76,  color:'#84cc16'},
+  {label:'Viking Motorsports',    val:0.68,  color:'#14b8a6'},
+], 16, 20, 'Goal');
+// ── PAGE 6: POINTS STANDINGS ──────────────────────────────────────────────
+const ORG_COLORS = {
+  JGR:'#7c3aed', JRM:'#f97316', HMS:'#2563eb',
+  HFT:'#eab308', RCR:'#ef4444', VIK:'#14b8a6', JAR:'#84cc16', IND:'#6b7280'
+};
+
+const DRIVER_STANDINGS = [
+  {pos:1, car:'7',  name:'Allgaier',  org_tag:'JRM', pts:520, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'00', name:'Creed',     org_tag:'HFT', pts:389, stage:0,  color:ORG_COLORS.HFT, org:'HFT', jgr:false},
+  {pos:3, car:'2',  name:'Love',      org_tag:'RCR', pts:371, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:4, car:'17', name:'Day',       org_tag:'HMS', pts:344, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:5, car:'20', name:'Jones',     org_tag:'JGR', pts:324, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:6, car:'8',  name:'Smith',     org_tag:'JRM', pts:310, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:7, car:'1',  name:'Kvapil',    org_tag:'JRM', pts:301, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:8, car:'21', name:'Hill',      org_tag:'RCR', pts:296, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:9, car:'54', name:'Gray',      org_tag:'JGR', pts:294, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:10,car:'18', name:'Sawalich',  org_tag:'JGR', pts:271, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
+  {pos:11,car:'99', name:'Retzlaff',  org_tag:'VIK', pts:258, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:12,car:'32', name:'Caruth',    org_tag:'JAR', pts:254, stage:5,  color:ORG_COLORS.JAR, org:'JAR', jgr:false, cutline:true},
+  {pos:13,car:'39', name:'Sieg',      org_tag:'RSS', pts:229, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:14,car:'41', name:'Mayer',     org_tag:'HFT', pts:225, stage:10, color:ORG_COLORS.HFT, org:'HFT', jgr:false},
+  {pos:15,car:'44', name:'Poole',     org_tag:'APR', pts:199, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:16,car:'19', name:'Crews',     org_tag:'JGR', pts:190, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:17,car:'27', name:'Burton',    org_tag:'JAR', pts:189, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:18,car:'96', name:'Alfredo',   org_tag:'VIK', pts:171, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:19,car:'26', name:'Thompson',  org_tag:'SHR', pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:20,car:'48', name:'Staropoli', org_tag:'BMR', pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:21,car:'31', name:'Perkins',   org_tag:'JAR', pts:151, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+];
+
+const OWNER_STANDINGS = [
+  {pos:1, car:'7',  name:'JR Motorsports (#7)',     pts:520, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'88', name:'JR Motorsports (#88)',    pts:397, stage:20, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:3, car:'00', name:'Haas Factory Team (#00)', pts:389, stage:0,  color:ORG_COLORS.HFT, org:'HFT', jgr:false},
+  {pos:4, car:'2',  name:'RCR (#2)',                pts:371, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:5, car:'17', name:'HMS (#17)',               pts:344, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:6, car:'1',  name:'JR Motorsports (#1)',     pts:325, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:7, car:'20', name:'JGR (#20)',               pts:324, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:8, car:'8',  name:'JR Motorsports (#8)',     pts:310, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:9, car:'19', name:'JGR (#19)',               pts:301, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:10,car:'21', name:'RCR (#21)',               pts:296, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:11,car:'54', name:'JGR (#54)',               pts:294, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:12,car:'18', name:'JGR (#18)',               pts:271, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true, cutline:true},
+  {pos:13,car:'99', name:'Viking Motorsports (#99)',pts:258, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:14,car:'39', name:'RSS Racing (#39)',        pts:229, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:15,car:'41', name:'Haas Factory Team (#41)', pts:225, stage:10, color:ORG_COLORS.HFT, org:'HFT', jgr:false},
+  {pos:16,car:'32', name:'JAR (#32)',               pts:217, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:17,car:'44', name:'Alpha Prime Racing (#44)',pts:199, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:18,car:'27', name:'JAR (#27)',               pts:189, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:19,car:'9',  name:'JR Motorsports (#9)',     pts:184, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:20,car:'26', name:'Sam Hunt Racing (#26)',   pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:21,car:'48', name:'Big Machine Racing (#48)',pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:22,car:'31', name:'JAR (#31)',               pts:151, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:23,car:'96', name:'Viking Motorsports (#96)',pts:145, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+];
+
+function renderStandings(containerId, rows) {
+  const maxPts = rows[0].pts;
+  let html = '';
+  let seenCutline = false;
+  rows.forEach(d => {
+    const pct      = (d.pts / maxPts * 100).toFixed(1);
+    const stagePct = d.stage ? (d.stage / d.pts * 100).toFixed(1) : 0;
+    const rowClass = d.jgr ? 'jgr-std' : '';
+    const tag      = d.org_tag || d.org || '';
+    const barColor = d.jgr ? '#7c3aed' : d.color;
+
+    if(d.cutline && !seenCutline) {
+      html += `<div class="playoff-cutline-lbl">── Playoff Cutline (P12) ──</div>`;
+      seenCutline = true;
+    }
+
+    html += `<div class="std-row ${rowClass}" style="${d.cutline?'border-top:2px dashed rgba(124,58,237,.7);padding-top:4px':''}">
+      <div class="std-pos">${d.pos}</div>
+      <div class="std-cnum" style="background:${barColor};color:#fff">${d.car}</div>
+      <div class="std-org-tag" style="background:${barColor}22;color:${barColor};border:1px solid ${barColor}55">${tag}</div>
+      <div class="std-name" style="${d.jgr?'font-weight:700;color:#1a1e2b':''}">${d.name}</div>
+      <div class="std-bar-track">
+        <div class="std-bar-fill" style="width:${pct}%;background:${barColor}">
+          ${d.stage>0?'<div class="std-bar-stage" style="width:'+stagePct+'%"></div>':''}
+        </div>
+      </div>
+      <div class="std-pts" style="${d.jgr?'color:#7c3aed;font-weight:800':''}">${d.pts}</div>
+    </div>`;
+  });
+  document.getElementById(containerId).innerHTML = html;
+}
+
+renderStandings('std-driver', DRIVER_STANDINGS);
+renderStandings('std-owner',  OWNER_STANDINGS);
+</script>
+</body>
+</html>
