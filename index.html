@@ -622,6 +622,8 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
 </div>
 
 
+</div>
+
 <div class="nav">
   <button class="nav-prev" onclick="changePage(-1)">◀</button>
   <button class="nav-btn active" onclick="goPage(1,this)">KPI Summary</button>
@@ -677,21 +679,22 @@ const RACES = [
   {r:8,  n:'NC Education Lottery 250',   t:'Rockingham',     short:'ROC'},
   {r:9,  n:'Suburban Propane 300',       t:'Bristol',        short:'BRI'},
   {r:10, n:'Kansas Lottery 300',         t:'Kansas',         short:'KAN'},
+  {r:11, n:'AG-PRO 300',                   t:'Talladega',      short:'TAL'},
 ];
 
 // DNS: truly no car on track for Crews. SUB: ineligible sub driver ran the car.
 const IS_DNS = {19: new Set([0,1,4,5])};
 const IS_SUB = {19: new Set([])};
 
-const QUAL  = {'18':[4,5,4,15,11,7,3,14,1,7],   '19':[null,null,7,5,null,null,4,10,17,5],  '20':[15,10,15,3,5,8,3,8,4,14],   '54':[9,3,14,1,6,6,13,6,6,10]};
-const S1    = {'18':[7,18,12,16,14,8,10,5,6,30], '19':[null,null,20,8,3,2,4,8,14,8],       '20':[10,13,4,10,10,4,2,3,5,1],    '54':[12,4,29,12,4,19,21,2,21,6]};
-const S2    = {'18':[4,16,15,14,12,10,5,2,6,19], '19':[null,null,11,5,2,9,14,4,5,12],      '20':[13,5,8,12,11,3,28,5,7,1],    '54':[14,12,14,8,3,21,3,13,15,7]};
-const FIN   = {'18':[26,23,7,37,9,17,20,1,7,20], '19':[null,null,6,18,null,null,10,26,3,5],'20':[30,10,15,16,13,2,18,2,19,8], '54':[28,9,12,15,37,15,13,7,10,1]};
-const PCT_LED={'18':[1.6,3.1,0,0,0,0,0,32.0,9.0,0], '19':[0,0,7.7,0,1.0,0,0,12.1,1.0,0], '20':[0.8,0,0,0,2.0,5.4,0.8,0,0.7,33.5], '54':[0,1.2,0,5.0,14.2,0,0,2.4,0,24.0]};
-const PCT_T5 ={'18':[38.0,19.9,10.8,0,22.5,22.4,24.8,69.2,51.7,14.1],'19':[0,0,52.3,27.5,0,0,42.4,38.7,38.7,25.5],'20':[25.8,38.7,35.4,23.5,38.5,51.0,29.2,46.8,24.3,47.5],'54':[20.2,29.4,18.5,28.5,58.8,13.6,21.6,40.4,24.3,51.5]};
+const QUAL  = {'18':[4,5,4,15,11,7,3,14,1,7,16],   '19':[null,null,7,5,null,null,4,10,17,5,18],  '20':[15,10,15,3,5,8,3,8,4,14,22],   '54':[9,3,14,1,6,6,13,6,6,10,26]};
+const S1    = {'18':[7,18,12,16,14,8,10,5,6,30,null], '19':[null,null,20,8,3,2,4,8,14,8,null],       '20':[10,13,4,10,10,4,2,3,5,1,null],    '54':[12,4,29,12,4,19,21,2,21,6,null]};
+const S2    = {'18':[4,16,15,14,12,10,5,2,6,19,null], '19':[null,null,11,5,2,9,14,4,5,12,null],      '20':[13,5,8,12,11,3,28,5,7,1,null],    '54':[14,12,14,8,3,21,3,13,15,7,null]};
+const FIN   = {'18':[26,23,7,37,9,17,20,1,7,20,28], '19':[null,null,6,18,null,null,10,26,3,5,2],'20':[30,10,15,16,13,2,18,2,19,8,8], '54':[28,9,12,15,37,15,13,7,10,1,29]};
+const PCT_LED={'18':[1.6,3.1,0,0,0,0,0,32.0,9.0,0,0], '19':[0,0,7.7,0,1.0,0,0,12.1,1.0,0,0], '20':[0.8,0,0,0,2.0,5.4,0.8,0,0.7,33.5,0], '54':[0,1.2,0,5.0,14.2,0,0,2.4,0,24.0,0]};
+const PCT_T5 ={'18':[38.0,19.9,10.8,0,22.5,22.4,24.8,69.2,51.7,14.1,0.018],'19':[0,0,52.3,27.5,0,0,42.4,38.7,38.7,25.5,0.053],'20':[25.8,38.7,35.4,23.5,38.5,51.0,29.2,46.8,24.3,47.5,0.115],'54':[20.2,29.4,18.5,28.5,58.8,13.6,21.6,40.4,24.3,51.5,0.106]};
 const TOTAL_PTS={'18':[22,14,30,1,28,24,24,71,40,17],'19':[0,0,31,28,0,0,34,21,41,35],'20':[8,33,32,22,25,50,28,49,28,49],'54':[9,35,25,25,16,22,32,39,27,64]};
-const STAGE_PTS={'18':[0,0,0,0,0,0,0,10,5,0],'19':[0,0,0,0,0,0,0,0,0,0],'20':[0,0,0,0,0,0,0,0,5,9],'54':[0,0,0,0,0,0,0,5,0,5]};
-const BONUS_PTS={'18':[0,0,0,0,0,0,0,1,0,0],'19':[0,0,0,0,0,0,0,0,1,0],'20':[0,0,0,0,0,0,0,0,0,0],'54':[0,0,0,0,0,0,0,0,0,1]};
+const STAGE_PTS={'18':[0,0,0,0,0,0,0,10,5,0,0],'19':[0,0,0,0,0,0,0,0,0,0,0],'20':[0,0,0,0,0,0,0,0,5,9,0],'54':[0,0,0,0,0,0,0,5,0,5,0]};
+const BONUS_PTS={'18':[0,0,0,0,0,0,0,1,0,0,0],'19':[0,0,0,0,0,0,0,0,1,0,0],'20':[0,0,0,0,0,0,0,0,0,0,0],'54':[0,0,0,0,0,0,0,0,0,1,0]};
 
 const CAR_COLORS = {'18':'#7c3aed','19':'#f97316','20':'#ef4444','54':'#22c55e'};
 const CAR_CSS    = {'18':'--c18','19':'--c19','20':'--c20','54':'--c54'};
@@ -802,20 +805,20 @@ hbarChart('wins-car-chart', [
   {label:'Gray (JGR)',        val:1, color:'#7c3aed', highlight:true},
   {label:'Hill (RCR)',        val:1, color:'#ef4444'},
   {label:'Creed (HFT)',       val:1, color:'#eab308'},
+  {label:'Day (HMS)',         val:1, color:'#2563eb'},
   {label:'Jones (JGR)',       val:0, color:'#7c3aed', highlight:true},
   {label:'Crews (JGR)',       val:0, color:'#7c3aed', highlight:true},
-  {label:'Day (HMS)',         val:0, color:'#2563eb'},
   {label:'Retzlaff (VIK)',    val:0, color:'#14b8a6'},
 ], 4, null, null)
 
 hbarChart('wins-org-chart', [
-  {label:'JRM',         val:6, color:'#f97316'},
+  {label:'JRM',                    val:6, color:'#f97316'},
   {label:'Joe Gibbs Racing',       val:2, color:'#7c3aed', highlight:true},
   {label:'Richard Childress Rcg',  val:1, color:'#ef4444'},
-  {label:'HFR',      val:1, color:'#eab308'},
+  {label:'HFR',                    val:1, color:'#eab308'},
+  {label:'Hendrick Motorsports',   val:1, color:'#2563eb'},
   {label:'Jordan Anderson Rcg',    val:0, color:'#84cc16'},
-  {label:'Hendrick Motorsports',   val:0, color:'#2563eb'},
-  {label:'VIK',     val:0, color:'#14b8a6'},
+  {label:'VIK',                    val:0, color:'#14b8a6'},
   {label:'Other',                  val:0, color:'#9ca3af'},
 ], 7, 12, 'Goal');
 
@@ -899,6 +902,7 @@ hbarChart('t5-org-chart', [
   {label:'VIK',    val:0.68,  color:'#14b8a6'},
 ], 16, 20, 'Goal');
 
+
 // ── PIT CREW DATA ──────────────────────────────────────────────────────────
 // Format: {race, track, stops:[{lap, time, net}]}  net=null for last stop (no exit data)
 const PIT_DATA = {
@@ -944,7 +948,13 @@ const PIT_DATA = {
     {race:7,  track:'MAR',  stops:[{lap:37,  time:13.69, net:null}, {lap:125, time:13.53, net:null}, {lap:183, time:14.16, net:null}]},
     {race:9,  track:'BRI',  stops:[{lap:65,  time:14.95, net:null}, {lap:176, time:15.26, net:null}, {lap:273, time:16.66, net:null}]},
     {race:10, track:'KAN',  stops:[{lap:23,  time:13.12, net:null}, {lap:49,  time:12.44, net:null}, {lap:94,  time:13.29, net:null}, {lap:143, time:13.43, net:null}]},
-  ],
+    {race:11, track:'TAL', name:'AG-PRO 300',
+    r18:{fin:28, pts:9,  qual:16, s1:null, s2:null, dns:false},
+    r19:{fin:2,  pts:35, qual:18, s1:null, s2:null, dns:false},
+    r20:{fin:8,  pts:29, qual:22, s1:null, s2:null, dns:false},
+    r54:{fin:29, pts:8,  qual:26, s1:null, s2:null, dns:false},
+  },
+],
 };
 
 // ── PAGE 6: POINTS STANDINGS ──────────────────────────────────────────────
@@ -954,53 +964,53 @@ const ORG_COLORS = {
 };
 
 const DRIVER_STANDINGS = [
-  {pos:1, car:'7',  name:'Allgaier',  org_tag:'JRM', pts:520, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:2, car:'00', name:'Creed',     org_tag:'HFR', pts:389, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:3, car:'2',  name:'Love',      org_tag:'RCR', pts:371, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:4, car:'17', name:'Day',       org_tag:'HMS', pts:344, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
-  {pos:5, car:'20', name:'Jones',     org_tag:'JGR', pts:324, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
-  {pos:6, car:'8',  name:'Smith',     org_tag:'JRM', pts:310, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:7, car:'—',  name:'Kvapil',    org_tag:'',    pts:301, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
-  {pos:8, car:'21', name:'Hill',      org_tag:'RCR', pts:296, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:9, car:'54', name:'Gray',      org_tag:'JGR', pts:294, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
-  {pos:10,car:'18', name:'Sawalich',  org_tag:'JGR', pts:271, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
-  {pos:11,car:'99', name:'Retzlaff',  org_tag:'VIK', pts:258, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:12,car:'—',  name:'Caruth',    org_tag:'',    pts:254, stage:5,  color:'#9ca3af',       org:'IND', jgr:false},
-  {pos:13,car:'39', name:'Sieg',      org_tag:'RSS', pts:229, cutline:true, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:14,car:'41', name:'Mayer',     org_tag:'HFR', pts:225, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:15,car:'44', name:'Poole',     org_tag:'APR', pts:199, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:16,car:'19', name:'Crews',     org_tag:'JGR', pts:190, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
-  {pos:17,car:'27', name:'Burton',    org_tag:'JAR', pts:189, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:18,car:'96', name:'Alfredo',   org_tag:'VIK', pts:171, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:19,car:'26', name:'Thompson',  org_tag:'SHR', pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:20,car:'48', name:'Staropoli', org_tag:'BMR', pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:21,car:'31', name:'Perkins',   org_tag:'JAR', pts:151, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:22,car:'51', name:'Clements',  org_tag:'JCR', pts:142, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:1, car:'7',  name:'Allgaier',  org_tag:'JRM', pts:544, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'00', name:'Creed',     org_tag:'HFR', pts:439, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:3, car:'2',  name:'Love',      org_tag:'RCR', pts:403, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:4, car:'17', name:'Day',       org_tag:'HMS', pts:399, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:5, car:'20', name:'Jones',     org_tag:'JGR', pts:353, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:6, car:'8',  name:'Smith',     org_tag:'JRM', pts:352, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:7, car:'—',  name:'Kvapil',    org_tag:'',    pts:331, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:8, car:'21', name:'Hill',      org_tag:'RCR', pts:321, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:9, car:'54', name:'Gray',      org_tag:'JGR', pts:302, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:11,car:'18', name:'Sawalich',  org_tag:'JGR', pts:280, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
+  {pos:10,car:'99', name:'Retzlaff',  org_tag:'VIK', pts:292, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:12,car:'—',  name:'Caruth',    org_tag:'',    pts:268, stage:5,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:13,car:'39', name:'Sieg',      org_tag:'RSS', pts:254, cutline:true, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:14,car:'41', name:'Mayer',     org_tag:'HFR', pts:241, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:16,car:'44', name:'Poole',     org_tag:'APR', pts:221, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:15,car:'19', name:'Crews',     org_tag:'JGR', pts:225, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:17,car:'27', name:'Burton',    org_tag:'JAR', pts:200, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:21,car:'96', name:'Alfredo',   org_tag:'VIK', pts:177, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:18,car:'26', name:'Thompson',  org_tag:'SHR', pts:196, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:23,car:'48', name:'Staropoli', org_tag:'BMR', pts:153, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:19,car:'31', name:'Perkins',   org_tag:'JAR', pts:181, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:20,car:'51', name:'Clements',  org_tag:'JCR', pts:179, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
 ];
 
 const OWNER_STANDINGS = [
-  {pos:1, car:'7',  name:'JRM (#7)',     pts:520, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:2, car:'88', name:'JRM (#88)',    pts:397, stage:20, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:3, car:'00', name:'HFR (#00)', pts:389, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:4, car:'2',  name:'RCR (#2)',                pts:371, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:5, car:'17', name:'HMS (#17)',               pts:344, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
-  {pos:6, car:'1',  name:'JRM (#1)',     pts:325, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:7, car:'20', name:'JGR (#20)',               pts:324, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
-  {pos:8, car:'8',  name:'JRM (#8)',     pts:310, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:9, car:'19', name:'JGR (#19)',               pts:301, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
-  {pos:10,car:'21', name:'RCR (#21)',               pts:296, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:11,car:'54', name:'JGR (#54)',               pts:294, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
-  {pos:12,car:'18', name:'JGR (#18)',               pts:271, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
-  {pos:13,car:'99', name:'VIK (#99)',pts:258, cutline:true, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:14,car:'39', name:'RSS (#39)',        pts:229, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:15,car:'41', name:'HFR (#41)', pts:225, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:16,car:'32', name:'JAR (#32)',               pts:217, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:17,car:'44', name:'APR (#44)',pts:199, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:18,car:'27', name:'JAR (#27)',               pts:189, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:1, car:'7',  name:'JRM (#7)',     pts:544, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'88', name:'JRM (#88)',    pts:411, stage:20, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:3, car:'00', name:'HFR (#00)', pts:439, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:4, car:'2',  name:'RCR (#2)',                pts:403, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:5, car:'17', name:'HMS (#17)',               pts:399, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:6, car:'1',  name:'JRM (#1)',     pts:331, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:7, car:'20', name:'JGR (#20)',               pts:353, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:8, car:'8',  name:'JRM (#8)',     pts:352, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:9, car:'19', name:'JGR (#19)',               pts:336, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:10,car:'21', name:'RCR (#21)',               pts:321, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:11,car:'54', name:'JGR (#54)',               pts:302, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:12,car:'18', name:'JGR (#18)',               pts:280, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
+  {pos:13,car:'99', name:'VIK (#99)',pts:292, cutline:true, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:14,car:'39', name:'RSS (#39)',        pts:254, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:15,car:'41', name:'HFR (#41)', pts:241, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:16,car:'32', name:'JAR (#32)',               pts:228, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:17,car:'44', name:'APR (#44)',pts:221, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:18,car:'27', name:'JAR (#27)',               pts:200, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
   {pos:19,car:'9',  name:'JRM (#9)',     pts:184, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:20,car:'26', name:'SHR (#26)',   pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:21,car:'48', name:'BMR (#48)',pts:152, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:22,car:'31', name:'JAR (#31)',               pts:151, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:20,car:'26', name:'SHR (#26)',   pts:196, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:21,car:'48', name:'BMR (#48)',pts:153, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:22,car:'31', name:'JAR (#31)',               pts:181, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
 ];
 
 function renderStandings(containerId, rows) {
@@ -1197,6 +1207,9 @@ renderStandings('std-owner',  OWNER_STANDINGS);
   html += '</div>';
   container.innerHTML = html;
 })();
+
+
+
 
 </script>
 </body>
