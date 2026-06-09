@@ -101,7 +101,7 @@ body{background:#2a2d35; font-family:'Barlow',sans-serif; font-size:14px; color:
 .kpi-ahead{color:var(--good)}
 
 /* ── RACE RESULTS TABLE (slide 2) ── */
-.rr-wrap{background:var(--white); border-radius:6px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.rr-wrap{background:var(--white); border-radius:6px; overflow:auto; box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .rr-table{width:100%; border-collapse:collapse}
 .rr-table th{
   font-family:Barlow Condensed,sans-serif; font-size:11px; font-weight:700;
@@ -333,11 +333,11 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
     <div style="margin-top:12px" class="page-goals">
       <div>Goal: Win the NOAPS Driver and Owner Championships</div>
       <div>Goal: All 4 JGR Drivers/Teams in the top 12 in points &amp; qualifying for the playoffs</div>
-      <div>Goal: 10 total wins for the organization</div>
-      <div>Goal: At least 10 poles for the organization</div>
-      <div>Goal: 5 race durations led for the organization</div>
+      <div>Goal: 8 total wins for the organization</div>
+      <div>Goal: At least 8 poles for the organization</div>
+      <div>Goal: 10 race durations led for the organization</div>
       <div>Goal: Conversion rate of 1.25 Wins per race duration led</div>
-      <div>Goal: 20 race durations spent in the Top 5 for the organization</div>
+      <div>Goal: 40 race durations spent in the Top 5 for the organization</div>
       <div>Goal: Conversion rate of .25 Wins per race duration in the Top 5</div>
     </div>
   </div>
@@ -369,49 +369,46 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
       
       <tr>
         <td>Wins</td>
-        <td>
-          <span class="kpi-val kpi-behind">2</span>
-          <div class="kpi-sub">#18 Rockingham · #54 Kansas</div>
-        </td>
-        <td><span class="kpi-val">10 <span class="pace-val">(3.3)</span></span></td>
+        <td id="kpi-wins-val"><span class="kpi-val kpi-behind">2</span><div class="kpi-sub">#18 Rockingham · #54 Kansas</div></td>
+        <td id="kpi-wins-goal"><span class="kpi-val">8 <span class="pace-val">(3.3)</span></span></td>
       </tr>
       <tr>
         <td>Poles</td>
         <td>
-          <span class="kpi-val kpi-behind">2</span>
+          <span id="kpi-poles-val" class="kpi-val kpi-behind">2</span>
           <div class="kpi-sub">#18 Bristol · #54 Phoenix</div>
         </td>
-        <td><span class="kpi-val">10 <span class="pace-val">(3.3)</span></span></td>
+        <td id="kpi-poles-goal"><span class="kpi-val">8 <span class="pace-val">(3.3)</span></span></td>
       </tr>
       <tr>
         <td>Races Led (Race Durations)</td>
         <td>
-          <span class="kpi-val kpi-behind">1.53</span>
-          <div class="kpi-sub">#18: 0.46 · #19: 0.21 · #20: 0.43 · #54: 0.43</div>
+          <span id="kpi-led-val" class="kpi-val kpi-behind">2.44</span>
+          <div class="kpi-sub">#18: 0.53 · #19: 0.85 · #20: 0.59 · #54: 0.47</div>
         </td>
-        <td><span class="kpi-val">5 <span class="pace-val">(1.67)</span></span></td>
+        <td id="kpi-led-goal"><span class="kpi-val">10 <span class="pace-val">(5.0)</span></span></td>
       </tr>
       <tr>
         <td>Wins / Races Led</td>
         <td>
-          <span class="kpi-val kpi-on">1.31</span>
-          <div class="kpi-sub">#18: 2.19 · #54: 2.32 · #19/20: 0.00</div>
+          <span id="kpi-convled-val" class="kpi-val kpi-behind">0.82</span>
+          <div class="kpi-sub">#18: 3.76 · #54: 2.13 · #19/20: 0.00</div>
         </td>
         <td><span class="kpi-val">1.25</span></td>
       </tr>
       <tr>
         <td>Races in Top 5 (Race Durations)</td>
         <td>
-          <span class="kpi-val kpi-behind">10.29</span>
-          <div class="kpi-sub">#18: 1.69 · #19: 2.34 · #20: 3.68 · #54: 2.59</div>
+          <span id="kpi-t5-val" class="kpi-val kpi-ahead">18.23</span>
+          <div class="kpi-sub">#18: 4.29 · #19: 4.56 · #20: 5.34 · #54: 4.04</div>
         </td>
-        <td><span class="kpi-val">20 <span class="pace-val">(6.67)</span></span></td>
+        <td id="kpi-t5-goal"><span class="kpi-val">40 <span class="pace-val">(37.6)</span></span></td>
       </tr>
       <tr>
         <td>Wins / Races in T5</td>
         <td>
-          <span class="kpi-val kpi-behind">0.19</span>
-          <div class="kpi-sub">#18: 0.59 · #54: 0.39 · #19/20: 0.00</div>
+          <span id="kpi-convt5-val" class="kpi-val kpi-behind">0.11</span>
+          <div class="kpi-sub">#18: 0.47 · #54: 0.25 · #19/20: 0.00</div>
         </td>
         <td><span class="kpi-val">0.25</span></td>
       </tr>
@@ -467,7 +464,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div>
     <div class="page-title">Race Wins</div>
     <div style="margin-top:10px" class="page-goals">
-      <div>Goal: 10 total wins for the organization</div>
+      <div>Goal: 8 total wins for the organization</div>
     </div>
   </div>
   <div class="series-logo">JGR</div>
@@ -478,21 +475,21 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
     <!-- JGR wins by season (top left) -->
     <div class="chart-box">
       <div class="chart-title">JGR NOAPS: Race Wins By Season</div>
-      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 16 Races</div>
       <div id="wins-season-chart"></div>
     </div>
 
     <!-- Wins by car (top right) -->
     <div class="chart-box">
       <div class="chart-title">NASCAR O'Reilly Auto Parts Series: Race Wins By Driver</div>
-      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div class="chart-sub">2026 Season – Through 16 Races</div>
       <div id="wins-car-chart"></div>
     </div>
 
     <!-- Wins by org (bottom, wide) -->
     <div class="chart-box" class="chart-full">
       <div class="chart-title">NASCAR O'Reilly Auto Parts Series: Race Wins By Organization</div>
-      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div class="chart-sub">2026 Season – Through 16 Races</div>
       <div id="wins-org-chart"></div>
     </div>
   </div>
@@ -508,7 +505,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div>
     <div class="page-title">Races Led</div>
     <div style="margin-top:10px" class="page-goals">
-      <div>Goal: 5 race durations led for the organization</div>
+      <div>Goal: 10 race durations led for the organization</div>
       <div>Goal: Conversion rate of 1.25 Wins per race duration led</div>
     </div>
   </div>
@@ -518,17 +515,17 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="chart-2col">
     <div class="chart-box">
       <div class="chart-title">JGR NOAPS: Total Race Durations Led by Season</div>
-      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 16 Races</div>
       <div id="led-season-chart"></div>
     </div>
     <div class="chart-box">
       <div class="chart-title">NOAPS: Race Durations Led By Car</div>
-      <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations Led · ◆ = Win Conversion Rate</div>
+      <div class="chart-sub">2026 Season – Through 16 Races · Bars = Durations Led · ◆ = Win Conversion Rate</div>
       <div id="led-car-chart"></div>
     </div>
     <div class="chart-box" class="chart-full">
       <div class="chart-title">NOAPS: Race Durations Led By Organization</div>
-      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div class="chart-sub">2026 Season – Through 16 Races</div>
       <div id="led-org-chart"></div>
     </div>
   </div>
@@ -544,7 +541,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div>
     <div class="page-title">Races in Top 5</div>
     <div style="margin-top:10px" class="page-goals">
-      <div>Goal: 20 race durations spent in the Top 5 for the organization</div>
+      <div>Goal: 40 race durations spent in the Top 5 for the organization</div>
       <div>Goal: Conversion rate of .25 Wins per race duration in the Top 5</div>
     </div>
   </div>
@@ -554,17 +551,17 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="chart-2col">
     <div class="chart-box">
       <div class="chart-title">JGR NOAPS: Total Race Durations in Top 5 by Season</div>
-      <div class="chart-sub">Points Races Only; 2026 Data Through 10 Races</div>
+      <div class="chart-sub">Points Races Only; 2026 Data Through 16 Races</div>
       <div id="t5-season-chart"></div>
     </div>
     <div class="chart-box">
       <div class="chart-title">NOAPS: Race Durations in Top 5 By Car</div>
-      <div class="chart-sub">2026 Season – Through 10 Races · Bars = Durations in T5 · ◆ = Win Conversion Rate</div>
+      <div class="chart-sub">2026 Season – Through 16 Races · Bars = Durations in T5 · ◆ = Win Conversion Rate</div>
       <div id="t5-car-chart"></div>
     </div>
     <div class="chart-box" class="chart-full">
       <div class="chart-title">NOAPS: Race Durations in Top 5 By Organization</div>
-      <div class="chart-sub">2026 Season – Through 10 Races</div>
+      <div class="chart-sub">2026 Season – Through 16 Races</div>
       <div id="t5-org-chart"></div>
     </div>
   </div>
@@ -590,12 +587,12 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <div class="standings-2col">
     <div class="std-chart-box">
       <div class="std-title">NASCAR O'Reilly Auto Parts Series: Points Standings (Driver)</div>
-      <div class="std-sub">2026 Season – Through 10 Races; Gray shaded area indicates Stage Points earned</div>
+      <div class="std-sub">2026 Season – Through 16 Races; Gray shaded area indicates Stage Points earned</div>
       <div id="std-driver"></div>
     </div>
     <div class="std-chart-box">
       <div class="std-title">NASCAR O'Reilly Auto Parts Series: Points Standings (Owner)</div>
-      <div class="std-sub">2026 Season – Through 10 Races; Gray shaded area indicates Stage Points earned</div>
+      <div class="std-sub">2026 Season – Through 16 Races; Gray shaded area indicates Stage Points earned</div>
       <div id="std-owner"></div>
     </div>
   </div>
@@ -635,7 +632,7 @@ body.dark .page-header { border-bottom-color:#d4a017 !important; }
   <button class="nav-btn" onclick="goPage(7,this)">Pit Crew</button>
   <div class="nav-spacer"></div>
   <button id="theme-btn" onclick="toggleTheme()" style="font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border:1px solid #555;border-radius:2px;background:transparent;color:#aaa;cursor:pointer;margin-right:8px">☾ Dark</button>
-  <span style="font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#555">JGR Internal · NOAPS 2026 · Through R10 Kansas</span>
+  <span style="font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#555">JGR Internal · NOAPS 2026 · Through R16 Nashville</span>
   <button class="nav-next" onclick="changePage(1)">▶</button>
 </div>
 
@@ -680,21 +677,55 @@ const RACES = [
   {r:9,  n:'Suburban Propane 300',       t:'Bristol',        short:'BRI'},
   {r:10, n:'Kansas Lottery 300',         t:'Kansas',         short:'KAN'},
   {r:11, n:'AG-PRO 300',                   t:'Talladega',      short:'TAL'},
+  {r:12, n:'Andy\'s Frozen Custard 340',   t:'Texas',          short:'TEX'},
+  {r:13, n:'Mission 200 at The Glen',       t:'Watkins Glen',   short:'WGL'},
+  {r:14, n:'BetRivers 200',                 t:'Dover',          short:'DOV'},
+  {r:15, n:'Charbroil 300',                 t:'Charlotte',      short:'CLT'},
+  {r:16, n:'SI Resorts 250',                t:'Nashville',      short:'NSH'},
 ];
 
 // DNS: truly no car on track for Crews. SUB: ineligible sub driver ran the car.
 const IS_DNS = {19: new Set([0,1,4,5])};
 const IS_SUB = {19: new Set([])};
 
-const QUAL  = {'18':[4,5,4,15,11,7,3,14,1,7,16],   '19':[null,null,7,5,null,null,4,10,17,5,18],  '20':[15,10,15,3,5,8,3,8,4,14,22],   '54':[9,3,14,1,6,6,13,6,6,10,26]};
-const S1    = {'18':[7,18,12,16,14,8,10,5,6,30,null], '19':[null,null,20,8,3,2,4,8,14,8,null],       '20':[10,13,4,10,10,4,2,3,5,1,null],    '54':[12,4,29,12,4,19,21,2,21,6,null]};
-const S2    = {'18':[4,16,15,14,12,10,5,2,6,19,null], '19':[null,null,11,5,2,9,14,4,5,12,null],      '20':[13,5,8,12,11,3,28,5,7,1,null],    '54':[14,12,14,8,3,21,3,13,15,7,null]};
-const FIN   = {'18':[26,23,7,37,9,17,20,1,7,20,28], '19':[null,null,6,18,null,null,10,26,3,5,2],'20':[30,10,15,16,13,2,18,2,19,8,8], '54':[28,9,12,15,37,15,13,7,10,1,29]};
-const PCT_LED={'18':[1.6,3.1,0,0,0,0,0,32.0,9.0,0,0], '19':[0,0,7.7,0,1.0,0,0,12.1,1.0,0,0], '20':[0.8,0,0,0,2.0,5.4,0.8,0,0.7,33.5,0], '54':[0,1.2,0,5.0,14.2,0,0,2.4,0,24.0,0]};
-const PCT_T5 ={'18':[38.0,19.9,10.8,0,22.5,22.4,24.8,69.2,51.7,14.1,0.018],'19':[0,0,52.3,27.5,0,0,42.4,38.7,38.7,25.5,0.053],'20':[25.8,38.7,35.4,23.5,38.5,51.0,29.2,46.8,24.3,47.5,0.115],'54':[20.2,29.4,18.5,28.5,58.8,13.6,21.6,40.4,24.3,51.5,0.106]};
+// ── ORG T5 / LED (per race from XML — add one entry per race) ──
+const ORG_T5 = {
+  'JRM': [1.4833,1.6994,2.1077,2.13,1.725,2.7347,2.064,1.448,2.53,1.28,1.1239,2.59,1.8537,1.69,2.0659,1.4521],
+  'JGR': [0.55,0.6074,0.4308,0.655,1.29,1.7143,0.992,2.336,1.2933,1.855,0.292,1.655,1.2195,1.445,0.5495,1.4096],
+  'RCR': [1.6417,1.0245,1.2154,0.985,0.485,0.0068,0.288,0.328,0.0,0.615,0.7611,0.02,1.061,0.315,1.033,0.9468],
+  'HFR': [0.2333,0.1656,0.6615,0.48,0.24,0.1088,0.24,0.0,0.0967,0.045,0.3982,0.335,0.3171,0.735,0.3187,0.3351],
+  'HMS': [0.125,0.2147,0.1077,0.02,0.33,0.2653,0.616,0.484,0.0333,0.305,0.3274,0.0,0.122,0.59,0.9121,0.7766],
+  'JAR': [0.325,0.1718,0.0615,0.045,0.02,0.0,0.084,0.0,0.0,0.055,0.4336,0.025,0.2683,0.025,0.0989,0.0106],
+  'VIK': [0.125,0.2209,0.0,0.005,0.025,0.1429,0.024,0.024,0.04,0.075,0.1593,0.28,0.061,0.0,0.0,0.0053],
+  'IND': [0.525,0.9018,0.3692,0.68,0.895,0.0476,0.692,0.38,1.0067,0.77,1.5044,0.095,0.0976,0.205,0.022,0.0638],
+};
+const ORG_LED = {
+  'JRM': [0.025,0.1718,0.6769,0.215,0.475,0.9388,0.684,0.004,0.8433,0.005,0.3274,0.975,0.3537,0.7,0.7802,0.266],
+  'JGR': [0.025,0.0429,0.0769,0.05,0.135,0.0544,0.008,0.464,0.1067,0.575,0.0531,0.01,0.3902,0.235,0.0,0.2447],
+  'RCR': [0.8583,0.3988,0.0615,0.57,0.18,0.0,0.036,0.06,0.0,0.005,0.354,0.0,0.2195,0.02,0.0879,0.4734],
+  'HFR': [0.05,0.1411,0.1231,0.055,0.16,0.0068,0.06,0.0,0.0,0.0,0.0708,0.0,0.0366,0.005,0.0989,0.0],
+  'HMS': [0.0,0.0,0.0,0.0,0.045,0.0,0.144,0.472,0.0,0.13,0.0088,0.0,0.0,0.02,0.0,0.0],
+  'JAR': [0.0333,0.135,0.0,0.01,0.0,0.0,0.0,0.0,0.0,0.0,0.0177,0.01,0.0,0.0,0.033,0.0],
+  'VIK': [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.03,0.0,0.0,0.0,0.0,0.0,0.0],
+  'IND': [0.0083,0.1104,0.0462,0.1,0.005,0.0068,0.068,0.0,0.05,0.255,0.1681,0.005,0.0,0.02,0.0,0.016],
+};
+// ── DRIVER PTS (cumulative after each race — update weekly) ──
+const DRIVER_PTS = {
+  '18': [22,36,66,67,77,119,143,214,271,280,280,303,304,344,384,429],
+  '19': [1,14,45,63,63,163,204,225,225,225,225,273,324,339,342,384],
+  '20': [8,41,73,95,120,170,198,247,247,324,353,394,433,474,480,512],
+  '54': [9,44,69,94,125,132,164,203,211,271,302,306,345,365,371,399],
+};
+
+const QUAL  = {'18':[4,5,4,15,11,7,3,14,1,7,16,16,14,8,7,5],   '19':[null,null,7,5,null,null,4,10,17,5,18,5,4,16,37,33],  '20':[15,10,15,3,5,8,3,8,4,14,22,2,7,6,4,29],   '54':[9,3,14,1,6,6,13,6,6,10,26,12,25,5,31,27]};
+const S1    = {'18':[7,18,12,16,14,8,10,5,6,30,null,null,null,7,null,7], '19':[null,null,20,8,3,2,4,8,14,8,null,5,1,null,9,10],       '20':[10,13,4,10,10,4,2,3,5,1,null,4,5,1,7,null],    '54':[12,4,29,12,4,19,21,2,21,6,null,null,null,4,null,null]};
+const S2    = {'18':[4,16,15,14,12,10,5,2,6,19,null,10,null,9,4,4], '19':[null,null,11,5,2,9,14,4,5,12,null,2,2,null,null,5],      '20':[13,5,8,12,11,3,28,5,7,1,null,6,10,null,null,null],    '54':[14,12,14,8,3,21,3,13,15,7,null,null,6,3,null,null]};
+const FIN   = {'18':[26,23,7,37,9,17,20,1,7,20,28,15,36,4,4,3], '19':[null,null,6,18,null,null,10,26,3,5,2,4,6,22,37,2],'20':[30,10,15,16,13,2,18,2,19,8,8,8,5,6,35,5], '54':[28,9,12,15,37,15,13,7,10,1,29,33,3,32,31,9]};
+const PCT_LED={'18':[1.6,3.1,0,0,0,0,0,32.0,9.0,0,0,0,0,7.5,0.0,0.0], '19':[0,0,7.7,0,1.0,0,0,12.1,1.0,0,0,0,39.0,0.0,0.0,23.9], '20':[0.8,0,0,0,2.0,5.4,0.8,0,0.7,33.5,0,0,0.0,15.5,0.0,0.5], '54':[0,1.2,0,5.0,14.2,0,0,2.4,0,24.0,0,0,0.0,0.5,0.0,0.0]};
+const PCT_T5 ={'18':[38.0,19.9,10.8,0,22.5,22.4,24.8,69.2,51.7,14.1,1.8,0.0,0,50.5,27.5,76.1],'19':[0,0,52.3,27.5,0,0,42.4,38.7,38.7,25.5,5.3,96.5,67.1,0.0,2.2,60.1],'20':[25.8,38.7,35.4,23.5,38.5,51.0,29.2,46.8,24.3,47.5,11.5,69.0,25.6,37.0,25.3,4.8],'54':[20.2,29.4,18.5,28.5,58.8,13.6,21.6,40.4,24.3,51.5,10.6,0.0,29.3,57.0,0.0,0.0]};
 const TOTAL_PTS={'18':[22,14,30,1,28,24,24,71,40,17],'19':[0,0,31,28,0,0,34,21,41,35],'20':[8,33,32,22,25,50,28,49,28,49],'54':[9,35,25,25,16,22,32,39,27,64]};
-const STAGE_PTS={'18':[0,0,0,0,0,0,0,10,5,0,0],'19':[0,0,0,0,0,0,0,0,0,0,0],'20':[0,0,0,0,0,0,0,0,5,9,0],'54':[0,0,0,0,0,0,0,5,0,5,0]};
-const BONUS_PTS={'18':[0,0,0,0,0,0,0,1,0,0,0],'19':[0,0,0,0,0,0,0,0,1,0,0],'20':[0,0,0,0,0,0,0,0,0,0,0],'54':[0,0,0,0,0,0,0,0,0,1,0]};
+const STAGE_PTS={'18':[0,0,0,0,0,0,0,10,5,0,0,1,0,6,7,11],'19':[0,0,0,0,0,0,0,0,0,0,0,15,19,0,2,7],'20':[0,0,0,0,0,0,0,0,5,9,0,12,7,10,4,0],'54':[0,0,0,0,0,0,0,5,0,5,0,0,5,15,0,0]};
+const BONUS_PTS={'18':[0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0],'19':[0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0],'20':[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],'54':[0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0]};
 
 const CAR_COLORS = {'18':'#7c3aed','19':'#f97316','20':'#ef4444','54':'#22c55e'};
 const CAR_CSS    = {'18':'--c18','19':'--c19','20':'--c20','54':'--c54'};
@@ -788,174 +819,185 @@ function hbarChart(containerId, rows, maxVal, goalVal, goalLabel, showDiamond) {
 }
 
 
-// ── PAGE 3: WINS ──────────────────────────────────────────────────────────
-hbarChart('wins-season-chart', [
-  {label:'2026', val:2,  color:'#d4a017', highlight:true},
-  {label:'2025', val:6,  color:'#c0c4cf'},
-  {label:'2024', val:11, color:'#c0c4cf'},
-  {label:'2023', val:11, color:'#c0c4cf'},
-  {label:'2022', val:8,  color:'#c0c4cf'},
-  {label:'2021', val:12, color:'#c0c4cf'},
-  {label:'2020', val:8,  color:'#c0c4cf'},
-], 13, 10, 'Goal');
+// ── COMPUTED CHART DATA ──────────────────────────────────────────────────
+(function computeCharts(){
+  const N = RACES.length;
+  const JGR = ['18','19','20','54'];
+  const CAR_LBL = {'18':'#18 Sawalich','19':'#19 Crews','20':'#20 Jones','54':'#54 Gray'};
+  const ORG_CLR = {JGR:'#7c3aed',JRM:'#f97316',RCR:'#ef4444',HFR:'#eab308',HMS:'#2563eb',JAR:'#84cc16',VIK:'#14b8a6',IND:'#9ca3af'};
 
-hbarChart('wins-car-chart', [
-  {label:'Allgaier (JRM)',    val:3, color:'#f97316'},
-  {label:'Sawalich (JGR)',    val:1, color:'#7c3aed', highlight:true},
-  {label:'Gray (JGR)',        val:1, color:'#7c3aed', highlight:true},
-  {label:'Hill (RCR)',        val:1, color:'#ef4444'},
-  {label:'Creed (HFT)',       val:1, color:'#eab308'},
-  {label:'Day (HMS)',         val:1, color:'#2563eb'},
-  {label:'Jones (JGR)',       val:0, color:'#7c3aed', highlight:true},
-  {label:'Crews (JGR)',       val:0, color:'#7c3aed', highlight:true},
-  {label:'Retzlaff (VIK)',    val:0, color:'#14b8a6'},
-], 4, null, null)
+  // ── Derived values ──
+  // Wins per JGR car (FIN==1, not DNS)
+  const carWins = {};
+  JGR.forEach(c => {
+    carWins[c] = FIN[c].filter((f,i) => f===1 && !(c==='19' && IS_DNS[19].has(i))).length;
+  });
 
-hbarChart('wins-org-chart', [
-  {label:'JRM',                    val:6, color:'#f97316'},
-  {label:'Joe Gibbs Racing',       val:2, color:'#7c3aed', highlight:true},
-  {label:'Richard Childress Rcg',  val:1, color:'#ef4444'},
-  {label:'HFR',                    val:1, color:'#eab308'},
-  {label:'Hendrick Motorsports',   val:1, color:'#2563eb'},
-  {label:'Jordan Anderson Rcg',    val:0, color:'#84cc16'},
-  {label:'VIK',                    val:0, color:'#14b8a6'},
-  {label:'Other',                  val:0, color:'#9ca3af'},
-], 7, 12, 'Goal');
+  // Race durations Led/T5 per JGR car
+  const carLed = {}, carT5 = {};
+  JGR.forEach(c => {
+    carLed[c] = PCT_LED[c].slice(0,N).reduce((a,v)=>a+v/100,0);
+    carT5[c]  = PCT_T5[c].slice(0,N).reduce((a,v)=>a+v/100,0);
+  });
 
-// ── PAGE 4: RACES LED ─────────────────────────────────────────────────────
-hbarChart('led-season-chart', [
-  {label:'2026', val:1.53,  color:'#d4a017', highlight:true},
-  {label:'2025', val:8.42,  color:'#c0c4cf'},
-  {label:'2024', val:9.11,  color:'#c0c4cf'},
-  {label:'2023', val:7.85,  color:'#c0c4cf'},
-  {label:'2022', val:10.42, color:'#c0c4cf'},
-  {label:'2021', val:8.98,  color:'#c0c4cf'},
-  {label:'2020', val:13.0,  color:'#c0c4cf'},
-], 14, 5, 'Goal');
+  // Org totals
+  const orgT5  = {}, orgLed = {};
+  ['JRM','JGR','RCR','HFR','HMS','JAR','VIK','IND'].forEach(o => {
+    orgT5[o]  = ORG_T5[o].slice(0,N).reduce((a,v)=>a+v,0);
+    orgLed[o] = ORG_LED[o].slice(0,N).reduce((a,v)=>a+v,0);
+  });
 
-hbarChart('led-car-chart', [
-  {label:'#7 Allgaier (JRM)',  val:1.78, color:'#f97316', diamondVal:1.69},
-  {label:'#17 Day (HMS)',       val:0.64, color:'#2563eb'},
-  {label:'#18 Sawalich (JGR)', val:0.46, color:'#7c3aed', highlight:true, diamondVal:2.19},
-  {label:'#20 Jones (JGR)',    val:0.43, color:'#7c3aed', highlight:true, diamondVal:0},
-  {label:'#54 Gray (JGR)',     val:0.43, color:'#7c3aed', highlight:true, diamondVal:2.32},
-  {label:'#2 Love (RCR)',      val:0.40, color:'#ef4444'},
-  {label:'Kvapil (JRM)',    val:0.29, color:'#fb923c'},
-  {label:'#00 Creed (HFT)',    val:0.22, color:'#eab308'},
-  {label:'#19 Crews (JGR)',    val:0.21, color:'#7c3aed', highlight:true, diamondVal:0},
-  {label:'Caruth (JAR)',   val:0.17, color:'#84cc16'},
-  {label:'#96 Alfredo (VIK)',  val:0.03, color:'#14b8a6'},
-  {label:'#27 Burton (JAR)',   val:0.01, color:'#84cc16'},
-  {label:'#99 Retzlaff (VIK)', val:0.00, color:'#14b8a6'},
-  {label:'#31 Perkins (JAR)',  val:0.00, color:'#84cc16'},
-], 2.0, 1.25, 'Goal Conv');
+  // Org wins (hardcoded by org — update manually each week when new winner)
+  const orgWins = {JRM:10, JGR:2, RCR:1, HFR:1, HMS:2, JAR:0, VIK:0, IND:0};
+  // All driver wins (update manually — includes ineligible drivers who won)
+  const driverWins = [
+    {label:'Allgaier (JRM)',    val:4, color:ORG_CLR.JRM},
+    {label:'Sawalich (JGR)',    val:carWins['18'], color:'#7c3aed', highlight:true},
+    {label:'Gray (JGR)',        val:carWins['54'], color:'#7c3aed', highlight:true},
+    {label:'Hill (RCR)',        val:1, color:ORG_CLR.RCR},
+    {label:'Creed (HFT)',       val:1, color:ORG_CLR.HFR},
+    {label:'Day (HMS)',         val:2, color:ORG_CLR.HMS},
+    {label:'Larson/i (JRM)',    val:1, color:'#fb923c'},
+    {label:'Zilisch/i (JRM)',   val:2, color:'#fb923c'},
+    {label:'Chastain/i (JRM)',  val:1, color:'#fb923c'},
+    {label:'Jones (JGR)',       val:carWins['20'], color:'#7c3aed', highlight:true},
+    {label:'Crews (JGR)',       val:carWins['19'], color:'#7c3aed', highlight:true},
+    {label:'Retzlaff (VIK)',    val:0, color:ORG_CLR.VIK},
+  ].sort((a,b)=>b.val-a.val);
 
-hbarChart('led-org-chart', [
-  {label:'JRM',        val:2.78, color:'#f97316'},
-  {label:'Joe Gibbs Racing',      val:1.53, color:'#7c3aed', highlight:true},
-  {label:'Hendrick Motorsports',  val:0.64, color:'#2563eb'},
-  {label:'Richard Childress Rcg', val:0.48, color:'#ef4444'},
-  {label:'HFR',     val:0.22, color:'#eab308'},
-  {label:'Jordan Anderson Rcg',   val:0.18, color:'#84cc16'},
-  {label:'Other',                 val:0.25, color:'#9ca3af'},
-  {label:'VIK',    val:0.03, color:'#14b8a6'},
-], 4.0, 5.0, 'Goal');
+  // Update SEASON object dynamically
+  JGR.forEach(c => {
+    const starts = FIN[c].filter((f,i) => !(c==='19' && IS_DNS[19].has(i)) && f!==null).length;
+    SEASON[c] = {
+      pts:    DRIVER_PTS[c][N-1] || 0,
+      starts: starts,
+      wins:   carWins[c],
+      rdl:    carLed[c],
+      rdt5:   carT5[c],
+      convLed: carWins[c]>0 && carLed[c]>0 ? parseFloat((carWins[c]/carLed[c]).toFixed(2)) : 0,
+      convT5:  carWins[c]>0 && carT5[c]>0  ? parseFloat((carWins[c]/carT5[c]).toFixed(2)) : 0,
+    };
+  });
 
-// ── PAGE 5: RACES IN TOP 5 ────────────────────────────────────────────────
-hbarChart('t5-season-chart', [
-  {label:'2026', val:10.29, color:'#d4a017', highlight:true},
-  {label:'2025', val:38.60, color:'#c0c4cf'},
-  {label:'2024', val:43.82, color:'#c0c4cf'},
-  {label:'2023', val:41.42, color:'#c0c4cf'},
-  {label:'2022', val:38.13, color:'#c0c4cf'},
-  {label:'2021', val:49.92, color:'#c0c4cf'},
-  {label:'2020', val:45.86, color:'#c0c4cf'},
-], 55, 20, 'Goal');
+  // ── Update "Through N Races" strings ──
+  document.querySelectorAll('.chart-sub, .std-sub').forEach(el => {
+    el.innerHTML = el.innerHTML.replace(/Through \d+ Races/g, 'Through '+N+' Races');
+  });
 
-hbarChart('t5-car-chart', [
-  {label:'#7 Allgaier (JRM)',  val:4.32, color:'#f97316', diamondVal:0.69},
-  {label:'#2 Love (RCR)',      val:3.76, color:'#ef4444'},
-  {label:'#20 Jones (JGR)',    val:3.68, color:'#7c3aed', highlight:true, diamondVal:0},
-  {label:'Kvapil (JRM)',    val:3.36, color:'#fb923c'},
-  {label:'#00 Creed (HFT)',    val:2.61, color:'#eab308'},
-  {label:'#54 Gray (JGR)',     val:2.59, color:'#7c3aed', highlight:true, diamondVal:0.39},
-  {label:'#19 Crews (JGR)',    val:2.34, color:'#7c3aed', highlight:true, diamondVal:0},
-  {label:'#17 Day (HMS)',       val:2.08, color:'#2563eb'},
-  {label:'#21 Hill (RCR)',     val:1.95, color:'#ef4444'},
-  {label:'#41 Mayer (HFT)',    val:1.82, color:'#eab308'},
-  {label:'#18 Sawalich (JGR)', val:1.69, color:'#7c3aed', highlight:true, diamondVal:0.59},
-  {label:'#99 Retzlaff (VIK)', val:0.51, color:'#14b8a6'},
-  {label:'#31 Perkins (JAR)',  val:0.29, color:'#84cc16'},
-  {label:'Caruth (JAR)',   val:0.24, color:'#84cc16'},
-  {label:'#27 Burton (JAR)',   val:0.23, color:'#84cc16'},
-  {label:'#96 Alfredo (VIK)',  val:0.17, color:'#14b8a6'},
-], 5.0, 5.0, 'Goal/car');
+  // ── PAGE 3: WINS ──
+  hbarChart('wins-season-chart', [
+    {label:'2020', val:8,  color:'#c0c4cf'},
+    {label:'2021', val:12, color:'#c0c4cf'},
+    {label:'2022', val:8,  color:'#c0c4cf'},
+    {label:'2023', val:11, color:'#c0c4cf'},
+    {label:'2024', val:11, color:'#c0c4cf'},
+    {label:'2025', val:6,  color:'#c0c4cf'},
+    {label:'2026', val:orgWins.JGR, color:'#d4a017', highlight:true},
+  ].sort((a,b)=>{ if(a.label==='2026'||b.label==='2026') return a.label==='2026'?-1:1; return parseInt(b.label)-parseInt(a.label); }),
+  13, 8, 'Goal');
 
-hbarChart('t5-org-chart', [
-  {label:'JRM',        val:13.72, color:'#f97316'},
-  {label:'Joe Gibbs Racing',      val:10.29, color:'#7c3aed', highlight:true},
-  {label:'Richard Childress Rcg', val:5.71,  color:'#ef4444'},
-  {label:'HFR',     val:4.43,  color:'#eab308'},
-  {label:'Other',                 val:3.80,  color:'#9ca3af'},
-  {label:'Hendrick Motorsports',  val:2.08,  color:'#2563eb'},
-  {label:'Jordan Anderson Rcg',   val:0.76,  color:'#84cc16'},
-  {label:'VIK',    val:0.68,  color:'#14b8a6'},
-], 16, 20, 'Goal');
+  hbarChart('wins-car-chart', driverWins, 4, null, null);
 
+  hbarChart('wins-org-chart', Object.entries(orgWins)
+    .map(([o,v])=>({label:o==='JGR'?'Joe Gibbs Racing':o, val:v, color:ORG_CLR[o]||'#9ca3af', highlight:o==='JGR'}))
+    .sort((a,b)=>b.val-a.val),
+  8, 8, 'Goal');
 
-// ── PIT CREW DATA ──────────────────────────────────────────────────────────
-// Format: {race, track, stops:[{lap, time, net}]}  net=null for last stop (no exit data)
-const PIT_DATA = {
-  '18': [
-    {race:1,  track:'DAY',  stops:[{lap:34,  time:14.54, net:null}]},
-    {race:2,  track:'ATL',  stops:[{lap:50,  time:13.99, net:null}]},
-    {race:3,  track:'COTA', stops:[{lap:36,  time:14.70, net:null}, {lap:58,  time:14.63, net:null}]},
-    {race:4,  track:'PHX',  stops:[{lap:51,  time:13.33, net:null}, {lap:96,  time:14.40, net:null}, {lap:149, time:14.44, net:null}]},
-    {race:5,  track:'LVS',  stops:[{lap:49,  time:12.43, net:null}, {lap:94,  time:13.15, net:null}, {lap:120, time:14.69, net:null}, {lap:150, time:14.93, net:null}]},
-    {race:6,  track:'DAR',  stops:[{lap:94,  time:16.15, net:null}, {lap:127, time:14.43, net:null}]},
-    {race:7,  track:'MAR',  stops:[{lap:65,  time:13.16, net:null}, {lap:125, time:13.36, net:null}, {lap:183, time:13.80, net:null}]},
-    {race:9,  track:'BRI',  stops:[{lap:65,  time:13.92, net:null}, {lap:176, time:13.15, net:null}, {lap:273, time:13.47, net:null}]},
-    {race:10, track:'KAN',  stops:[{lap:23,  time:13.27, net:null}, {lap:145, time:12.65, net:null}]},
-  ],
-  '19': [
-    {race:2,  track:'ATL',  stops:[{lap:50,  time:14.91, net:null}]},
-    {race:3,  track:'COTA', stops:[{lap:17,  time:15.24, net:null}, {lap:58,  time:14.73, net:null}]},
-    {race:4,  track:'PHX',  stops:[{lap:51,  time:14.79, net:null}, {lap:96,  time:13.81, net:null}, {lap:153, time:16.10, net:null}]},
-    {race:5,  track:'LVS',  stops:[{lap:49,  time:14.26, net:null}, {lap:94,  time:14.64, net:null}, {lap:134, time:15.33, net:null}, {lap:150, time:13.72, net:null}]},
-    {race:6,  track:'DAR',  stops:[{lap:94,  time:13.89, net:null}, {lap:127, time:13.97, net:null}]},
-    {race:7,  track:'MAR',  stops:[{lap:65,  time:13.65, net:null}, {lap:107, time:15.88, net:null}, {lap:183, time:13.50, net:null}]},
-    {race:9,  track:'BRI',  stops:[{lap:65,  time:15.33, net:null}, {lap:176, time:16.60, net:null}]},
-    {race:10, track:'KAN',  stops:[{lap:23,  time:13.07, net:null}, {lap:49,  time:14.77, net:null}, {lap:94,  time:13.72, net:null}, {lap:148, time:13.72, net:null}]},
-  ],
-  '20': [
-    {race:1,  track:'DAY',  stops:[{lap:34,  time:14.69, net:null}]},
-    {race:2,  track:'ATL',  stops:[{lap:50,  time:13.84, net:null}, {lap:94,  time:16.16, net:null}]},
-    {race:3,  track:'COTA', stops:[{lap:22,  time:14.02, net:null}, {lap:42,  time:13.32, net:null}, {lap:58,  time:13.54, net:null}]},
-    {race:4,  track:'PHX',  stops:[{lap:51,  time:13.32, net:null}, {lap:96,  time:16.08, net:null}, {lap:152, time:13.06, net:null}]},
-    {race:5,  track:'LVS',  stops:[{lap:49,  time:13.36, net:null}, {lap:94,  time:13.59, net:null}, {lap:120, time:12.95, net:null}, {lap:134, time:13.58, net:null}]},
-    {race:6,  track:'DAR',  stops:[{lap:94,  time:13.20, net:null}, {lap:127, time:12.49, net:null}]},
-    {race:7,  track:'MAR',  stops:[{lap:65,  time:12.89, net:null}, {lap:145, time:13.76, net:null}]},
-    {race:9,  track:'BRI',  stops:[{lap:65,  time:12.76, net:null}, {lap:176, time:13.68, net:null}, {lap:273, time:12.82, net:null}]},
-    {race:10, track:'KAN',  stops:[{lap:23,  time:12.55, net:null}, {lap:49,  time:12.24, net:null}, {lap:94,  time:12.35, net:null}, {lap:147, time:13.48, net:null}]},
-  ],
-  '54': [
-    {race:1,  track:'DAY',  stops:[{lap:34,  time:17.39, net:null}]},
-    {race:2,  track:'ATL',  stops:[{lap:50,  time:13.74, net:null}, {lap:94,  time:13.14, net:null}, {lap:128, time:14.02, net:null}]},
-    {race:3,  track:'COTA', stops:[{lap:17,  time:19.62, net:null}, {lap:36,  time:14.08, net:null}, {lap:58,  time:15.92, net:null}]},
-    {race:4,  track:'PHX',  stops:[{lap:51,  time:15.66, net:null}, {lap:96,  time:12.44, net:null}, {lap:154, time:13.86, net:null}]},
-    {race:5,  track:'LVS',  stops:[{lap:49,  time:13.41, net:null}, {lap:94,  time:14.94, net:null}, {lap:120, time:13.42, net:null}]},
-    {race:6,  track:'DAR',  stops:[{lap:127, time:14.50, net:null}]},
-    {race:7,  track:'MAR',  stops:[{lap:37,  time:13.69, net:null}, {lap:125, time:13.53, net:null}, {lap:183, time:14.16, net:null}]},
-    {race:9,  track:'BRI',  stops:[{lap:65,  time:14.95, net:null}, {lap:176, time:15.26, net:null}, {lap:273, time:16.66, net:null}]},
-    {race:10, track:'KAN',  stops:[{lap:23,  time:13.12, net:null}, {lap:49,  time:12.44, net:null}, {lap:94,  time:13.29, net:null}, {lap:143, time:13.43, net:null}]},
-    {race:11, track:'TAL', name:'AG-PRO 300',
-    r18:{fin:28, pts:9,  qual:16, s1:null, s2:null, dns:false},
-    r19:{fin:2,  pts:35, qual:18, s1:null, s2:null, dns:false},
-    r20:{fin:8,  pts:29, qual:22, s1:null, s2:null, dns:false},
-    r54:{fin:29, pts:8,  qual:26, s1:null, s2:null, dns:false},
-  },
-],
-};
+  // ── PAGE 4: RACES LED ──
+  hbarChart('led-season-chart', [
+    {label:'2020', val:13.0,  color:'#c0c4cf'},
+    {label:'2021', val:8.98,  color:'#c0c4cf'},
+    {label:'2022', val:10.42, color:'#c0c4cf'},
+    {label:'2023', val:7.85,  color:'#c0c4cf'},
+    {label:'2024', val:9.11,  color:'#c0c4cf'},
+    {label:'2025', val:8.42,  color:'#c0c4cf'},
+    {label:'2026', val:parseFloat(orgLed.JGR.toFixed(2)), color:'#d4a017', highlight:true},
+  ].sort((a,b)=>{ if(a.label==='2026'||b.label==='2026') return a.label==='2026'?-1:1; return parseInt(b.label)-parseInt(a.label); }),
+  14, 5, 'Goal');
+
+  const ledCarRows = JGR.map(c=>({label:CAR_LBL[c], val:parseFloat(carLed[c].toFixed(2)), color:'#7c3aed', highlight:true,
+    diamondVal: carWins[c]>0&&carLed[c]>0 ? parseFloat((carWins[c]/carLed[c]).toFixed(2)) : 0
+  })).concat([
+    {label:'Allgaier (JRM)',  val:1.29, color:ORG_CLR.JRM},
+    {label:'Caruth/SVG (JRM)',val:2.46, color:'#fb923c'},
+    {label:'Love (RCR)',      val:1.53, color:ORG_CLR.RCR},
+    {label:'Hill (RCR)',      val:0.99, color:ORG_CLR.RCR},
+    {label:'Kvapil (JRM)',    val:1.49, color:'#fdba74'},
+    {label:'Day (HMS)',        val:parseFloat(orgLed.HMS.toFixed(2)), color:ORG_CLR.HMS},
+    {label:'Mayer (HFR)',     val:0.67, color:ORG_CLR.HFR},
+  ]).sort((a,b)=>b.val-a.val);
+
+  hbarChart('led-car-chart', ledCarRows, 3.0, 1.25, 'Goal Conv');
+
+  hbarChart('led-org-chart', Object.entries(orgLed)
+    .map(([o,v])=>({label:o==='JGR'?'Joe Gibbs Racing':o, val:parseFloat(v.toFixed(2)), color:ORG_CLR[o]||'#9ca3af', highlight:o==='JGR'}))
+    .sort((a,b)=>b.val-a.val),
+  6.0, 10.0, 'Goal');
+
+  // ── PAGE 5: RACES IN TOP 5 ──
+  hbarChart('t5-season-chart', [
+    {label:'2020', val:45.86, color:'#c0c4cf'},
+    {label:'2021', val:49.92, color:'#c0c4cf'},
+    {label:'2022', val:38.13, color:'#c0c4cf'},
+    {label:'2023', val:41.42, color:'#c0c4cf'},
+    {label:'2024', val:43.82, color:'#c0c4cf'},
+    {label:'2025', val:38.60, color:'#c0c4cf'},
+    {label:'2026', val:parseFloat(orgT5.JGR.toFixed(2)), color:'#d4a017', highlight:true},
+  ].sort((a,b)=>{ if(a.label==='2026'||b.label==='2026') return a.label==='2026'?-1:1; return parseInt(b.label)-parseInt(a.label); }),
+  55, 20, 'Goal');
+
+  const t5CarRows = JGR.map(c=>({label:CAR_LBL[c], val:parseFloat(carT5[c].toFixed(2)), color:'#7c3aed', highlight:true,
+    diamondVal: carWins[c]>0&&carT5[c]>0 ? parseFloat((carWins[c]/carT5[c]).toFixed(2)) : 0
+  })).concat([
+    {label:'Allgaier (JRM)',  val:4.32, color:ORG_CLR.JRM},
+    {label:'Love (RCR)',      val:3.76, color:ORG_CLR.RCR},
+    {label:'Creed (HFR)',     val:2.61, color:ORG_CLR.HFR},
+    {label:'Day (HMS)',        val:parseFloat(orgT5.HMS.toFixed(2)), color:ORG_CLR.HMS},
+    {label:'Hill (RCR)',      val:1.95, color:ORG_CLR.RCR},
+    {label:'Mayer (HFR)',     val:1.82, color:ORG_CLR.HFR},
+    {label:'Kvapil (JRM)',    val:3.36, color:'#fdba74'},
+  ]).sort((a,b)=>b.val-a.val);
+
+  hbarChart('t5-car-chart', t5CarRows, 6.0, 10.0, 'Goal/car');
+
+  hbarChart('t5-org-chart', Object.entries(orgT5)
+    .map(([o,v])=>({label:o==='JGR'?'Joe Gibbs Racing':o, val:parseFloat(v.toFixed(2)), color:ORG_CLR[o]||'#9ca3af', highlight:o==='JGR'}))
+    .sort((a,b)=>b.val-a.val),
+  25, 20, 'Goal');
+
+  // ── Update KPI table dynamically ──
+  const jgrT5   = parseFloat(orgT5.JGR.toFixed(2));
+  const jgrLed  = parseFloat(orgLed.JGR.toFixed(2));
+  const jgrWins = orgWins.JGR;
+  const jgrPoles= 2; // update manually each week
+  const convLed = jgrLed>0 ? (jgrWins/jgrLed).toFixed(2) : '—';
+  const convT5  = jgrT5>0  ? (jgrWins/jgrT5).toFixed(2)  : '—';
+  const winsP   = JGR.some(c=>carWins[c]>0) ? (jgrWins/N*33).toFixed(1) : '—';
+  const polesP  = (jgrPoles/N*33).toFixed(1);
+  const ledP    = (jgrLed/N*33).toFixed(2);
+  const t5P     = (jgrT5/N*33).toFixed(1);
+  const carsT12 = DRIVER_PTS['20'][N-1]&&DRIVER_PTS['54'][N-1]&&DRIVER_PTS['18'][N-1]&&DRIVER_PTS['19'][N-1]
+    ? [DRIVER_PTS['20'][N-1],DRIVER_PTS['54'][N-1],DRIVER_PTS['18'][N-1],DRIVER_PTS['19'][N-1]].filter((p,i)=>{
+        // Count how many JGR cars are in top 12 — approximate from pts only
+        return true;
+      }).length : 0;
+
+  // Update KPI cells by data attribute
+  const setKpi = (id, val) => { const el=document.getElementById(id); if(el) el.innerHTML=val; };
+  setKpi('kpi-wins-val',   `<span class="kpi-val kpi-behind">${jgrWins}</span><div class="kpi-sub">#18 Rockingham · #54 Kansas</div>`);
+  setKpi('kpi-wins-goal',  `<span class="kpi-val">8 <span class="pace-val">(${winsP})</span></span>`);
+  setKpi('kpi-poles-val',  `<span class="kpi-val kpi-behind">${jgrPoles}</span><div class="kpi-sub">#18 Bristol · #54 Phoenix</div>`);
+  setKpi('kpi-poles-goal', `<span class="kpi-val">8 <span class="pace-val">(${polesP})</span></span>`);
+  setKpi('kpi-led-val',    `<span class="kpi-val kpi-behind">${jgrLed}</span>`);
+  setKpi('kpi-led-goal',   `<span class="kpi-val">10 <span class="pace-val">(${ledP})</span></span>`);
+  setKpi('kpi-t5-val',     `<span class="kpi-val kpi-ahead">${jgrT5}</span>`);
+  setKpi('kpi-t5-goal',    `<span class="kpi-val">40 <span class="pace-val">(${t5P})</span></span>`);
+  setKpi('kpi-convled-val',`<span class="kpi-val">${convLed}</span>`);
+  setKpi('kpi-convt5-val', `<span class="kpi-val">${convT5}</span>`);
+  setKpi('kpi-races-val',  `<span class="kpi-val">${N}</span>`);
+  // kpi-raceslbl: subtitle updated via chart-sub class
+
+})();
 
 // ── PAGE 6: POINTS STANDINGS ──────────────────────────────────────────────
 const ORG_COLORS = {
@@ -964,53 +1006,53 @@ const ORG_COLORS = {
 };
 
 const DRIVER_STANDINGS = [
-  {pos:1, car:'7',  name:'Allgaier',  org_tag:'JRM', pts:544, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:2, car:'00', name:'Creed',     org_tag:'HFR', pts:439, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:3, car:'2',  name:'Love',      org_tag:'RCR', pts:403, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:4, car:'17', name:'Day',       org_tag:'HMS', pts:399, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
-  {pos:5, car:'20', name:'Jones',     org_tag:'JGR', pts:353, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
-  {pos:6, car:'8',  name:'Smith',     org_tag:'JRM', pts:352, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:7, car:'—',  name:'Kvapil',    org_tag:'',    pts:331, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
-  {pos:8, car:'21', name:'Hill',      org_tag:'RCR', pts:321, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:9, car:'54', name:'Gray',      org_tag:'JGR', pts:302, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
-  {pos:11,car:'18', name:'Sawalich',  org_tag:'JGR', pts:280, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
-  {pos:10,car:'99', name:'Retzlaff',  org_tag:'VIK', pts:292, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:12,car:'—',  name:'Caruth',    org_tag:'',    pts:268, stage:5,  color:'#9ca3af',       org:'IND', jgr:false},
-  {pos:13,car:'39', name:'Sieg',      org_tag:'RSS', pts:254, cutline:true, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:14,car:'41', name:'Mayer',     org_tag:'HFR', pts:241, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:16,car:'44', name:'Poole',     org_tag:'APR', pts:221, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:15,car:'19', name:'Crews',     org_tag:'JGR', pts:225, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
-  {pos:17,car:'27', name:'Burton',    org_tag:'JAR', pts:200, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:21,car:'96', name:'Alfredo',   org_tag:'VIK', pts:177, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:18,car:'26', name:'Thompson',  org_tag:'SHR', pts:196, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:23,car:'48', name:'Staropoli', org_tag:'BMR', pts:153, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:19,car:'31', name:'Perkins',   org_tag:'JAR', pts:181, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:20,car:'51', name:'Clements',  org_tag:'JCR', pts:179, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:1, car:'7',  name:'Allgaier',  org_tag:'JRM', pts:770, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'2',  name:'Love',      org_tag:'RCR', pts:591, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:3, car:'17', name:'Day',       org_tag:'HMS', pts:574, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:4, car:'00', name:'Creed',     org_tag:'HFR', pts:532, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:5, car:'20', name:'Jones',     org_tag:'JGR', pts:512, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:6, car:'21', name:'Hill',      org_tag:'RCR', pts:499, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:7, car:'—',  name:'Kvapil',    org_tag:'',    pts:493, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:8, car:'8',  name:'Smith',     org_tag:'JRM', pts:482, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:9,car:'18', name:'Sawalich',  org_tag:'JGR', pts:429, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
+  {pos:10,car:'99', name:'Retzlaff',  org_tag:'VIK', pts:416, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:11,car:'41', name:'Mayer',     org_tag:'HFR', pts:413, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:12, car:'54', name:'Gray',      org_tag:'JGR', pts:399, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:13,car:'—',  name:'Caruth',    org_tag:'',    pts:387, stage:5,  color:'#9ca3af',       org:'IND', jgr:false, cutline:true},
+  {pos:14,car:'39', name:'Sieg',      org_tag:'RSS', pts:384, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:15,car:'19', name:'Crews',     org_tag:'JGR', pts:384, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:16,car:'44', name:'Poole',     org_tag:'APR', pts:309, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:17,car:'96', name:'Alfredo',   org_tag:'VIK', pts:286, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:18,car:'26', name:'Thompson',  org_tag:'SHR', pts:282, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:19,car:'51', name:'Clements',  org_tag:'JCR', pts:260, stage:0,  color:'#9ca3af',       org:'IND', jgr:false},
+  {pos:20,car:'27', name:'Burton',    org_tag:'JAR', pts:253, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:21,car:'31', name:'Perkins',   org_tag:'JAR', pts:237, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:22,car:'48', name:'Staropoli', org_tag:'BMR', pts:221, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
 ];
 
 const OWNER_STANDINGS = [
-  {pos:1, car:'7',  name:'JRM (#7)',     pts:544, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:2, car:'88', name:'JRM (#88)',    pts:411, stage:20, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:3, car:'00', name:'HFR (#00)', pts:439, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:4, car:'2',  name:'RCR (#2)',                pts:403, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:5, car:'17', name:'HMS (#17)',               pts:399, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
-  {pos:6, car:'1',  name:'JRM (#1)',     pts:331, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:7, car:'20', name:'JGR (#20)',               pts:353, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
-  {pos:8, car:'8',  name:'JRM (#8)',     pts:352, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:9, car:'19', name:'JGR (#19)',               pts:336, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
-  {pos:10,car:'21', name:'RCR (#21)',               pts:321, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
-  {pos:11,car:'54', name:'JGR (#54)',               pts:302, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
-  {pos:12,car:'18', name:'JGR (#18)',               pts:280, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
-  {pos:13,car:'99', name:'VIK (#99)',pts:292, cutline:true, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
-  {pos:14,car:'39', name:'RSS (#39)',        pts:254, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:15,car:'41', name:'HFR (#41)', pts:241, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false},
-  {pos:16,car:'32', name:'JAR (#32)',               pts:228, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:17,car:'44', name:'APR (#44)',pts:221, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:18,car:'27', name:'JAR (#27)',               pts:200, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
-  {pos:19,car:'9',  name:'JRM (#9)',     pts:184, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
-  {pos:20,car:'26', name:'SHR (#26)',   pts:196, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:21,car:'48', name:'BMR (#48)',pts:153, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
-  {pos:22,car:'31', name:'JAR (#31)',               pts:181, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:1, car:'7',  name:'JRM (#7)',     pts:770, stage:12, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:2, car:'88', name:'JRM (#88)',    pts:616, stage:20, color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:3, car:'2',  name:'RCR (#2)',                pts:591, stage:14, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:4, car:'1',  name:'JRM (#1)',     pts:584, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:5, car:'17', name:'HMS (#17)',               pts:574, stage:14, color:ORG_COLORS.HMS, org:'HMS', jgr:false},
+  {pos:6, car:'00', name:'HFR (#00)', pts:532, stage:0,  color:ORG_COLORS.HFR, org:'HFR', jgr:false},
+  {pos:7, car:'20', name:'JGR (#20)',               pts:512, stage:14, color:CAR_COLORS['20'], org:'JGR', jgr:true},
+  {pos:8,car:'21', name:'RCR (#21)',               pts:499, stage:22, color:ORG_COLORS.RCR, org:'RCR', jgr:false},
+  {pos:9, car:'19', name:'JGR (#19)',               pts:495, stage:0,  color:CAR_COLORS['19'], org:'JGR', jgr:true},
+  {pos:10, car:'8',  name:'JRM (#8)',     pts:482, stage:5,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:11,car:'18', name:'JGR (#18)',               pts:429, stage:15, color:CAR_COLORS['18'], org:'JGR', jgr:true},
+  {pos:12,car:'99', name:'VIK (#99)',pts:416, stage:0,  color:ORG_COLORS.VIK, org:'VIK', jgr:false},
+  {pos:13,car:'41', name:'HFR (#41)', pts:413, stage:10, color:ORG_COLORS.HFR, org:'HFR', jgr:false, cutline:true},
+  {pos:14,car:'54', name:'JGR (#54)',               pts:399, stage:10, color:CAR_COLORS['54'], org:'JGR', jgr:true},
+  {pos:15,car:'39', name:'RSS (#39)',        pts:384, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:16,car:'9',  name:'JRM (#9)',     pts:364, stage:0,  color:ORG_COLORS.JRM, org:'JRM', jgr:false},
+  {pos:17,car:'44', name:'APR (#44)',pts:309, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:18,car:'32', name:'JAR (#32)',               pts:305, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:19,car:'26', name:'SHR (#26)',   pts:282, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
+  {pos:20,car:'27', name:'JAR (#27)',               pts:253, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:21,car:'31', name:'JAR (#31)',               pts:237, stage:0,  color:ORG_COLORS.JAR, org:'JAR', jgr:false},
+  {pos:22,car:'48', name:'BMR (#48)',pts:153, stage:0,  color:ORG_COLORS.IND, org:'IND', jgr:false},
 ];
 
 function renderStandings(containerId, rows) {
@@ -1059,48 +1101,46 @@ renderStandings('std-owner',  OWNER_STANDINGS);
     RCR:'#ef4444', HFR:'#eab308', JAR:'#84cc16', VIK:'#14b8a6', IND:'#9ca3af'
   };
 
-  // All cars >=5 stops, >=10s stops only (min in data is 12.24s)
+  // ── Pit data constants ──
   const FIELD = [
-    {car:'20', org:'JGR', avg:13.49, best:12.24, stops:24, jgr:true},
-    {car:'18', org:'JGR', avg:13.93, best:12.43, stops:21, jgr:true},
-    {car:'2',  org:'RCR', avg:14.23, best:12.29, stops:23, jgr:false},
-    {car:'54', org:'JGR', avg:14.44, best:12.44, stops:24, jgr:true},
-    {car:'19', org:'JGR', avg:14.55, best:13.07, stops:21, jgr:true},
-    {car:'41', org:'HFR', avg:14.56, best:13.80, stops:22, jgr:false},
-    {car:'1',  org:'JRM', avg:14.73, best:13.14, stops:18, jgr:false},
-    {car:'88', org:'JRM', avg:14.82, best:13.11, stops:21, jgr:false},
-    {car:'8',  org:'JRM', avg:14.90, best:12.92, stops:23, jgr:false},
-    {car:'21', org:'RCR', avg:15.08, best:13.66, stops:18, jgr:false},
-    {car:'17', org:'HMS', avg:15.45, best:13.77, stops:22, jgr:false},
-    {car:'9',  org:'JRM', avg:15.45, best:13.90, stops:14, jgr:false},
-    {car:'7',  org:'JRM', avg:15.64, best:12.83, stops:28, jgr:false},
-    {car:'00', org:'HFR', avg:15.69, best:13.47, stops:35, jgr:false},
-    {car:'99', org:'VIK', avg:16.02, best:14.36, stops:15, jgr:false},
-    {car:'96', org:'VIK', avg:16.27, best:14.34, stops:16, jgr:false},
-    {car:'39', org:'IND', avg:16.31, best:14.39, stops:21, jgr:false},
-    {car:'24', org:'IND', avg:16.50, best:14.50, stops:21, jgr:false},
-    {car:'32', org:'JAR', avg:16.60, best:14.75, stops:22, jgr:false},
-    {car:'26', org:'IND', avg:16.90, best:14.68, stops:20, jgr:false},
-    {car:'48', org:'IND', avg:17.07, best:14.51, stops:23, jgr:false},
-    {car:'27', org:'JAR', avg:17.15, best:14.65, stops:20, jgr:false},
-    {car:'31', org:'JAR', avg:17.17, best:15.04, stops:19, jgr:false},
-    {car:'28', org:'IND', avg:17.37, best:15.15, stops:21, jgr:false},
-    {car:'44', org:'IND', avg:17.73, best:15.10, stops:25, jgr:false},
-    {car:'51', org:'IND', avg:17.80, best:16.58, stops:10, jgr:false},
-    {car:'87', org:'IND', avg:17.82, best:15.34, stops:14, jgr:false},
+    {car:'20', org:'JGR', avg:13.60, best:12.24, stops:39, jgr:true},
+    {car:'18', org:'JGR', avg:13.79, best:12.43, stops:32, jgr:true},
+    {car:'54', org:'JGR', avg:14.36, best:12.44, stops:35, jgr:true},
+    {car:'19', org:'JGR', avg:14.42, best:12.56, stops:35, jgr:true},
+    {car:'1',  org:'JRM', avg:14.64, best:12.90, stops:34, jgr:false},
+    {car:'88', org:'JRM', avg:14.66, best:12.49, stops:36, jgr:false},
+    {car:'2',  org:'RCR', avg:14.70, best:12.29, stops:39, jgr:false},
+    {car:'41', org:'HFR', avg:14.84, best:13.80, stops:38, jgr:false},
+    {car:'17', org:'HMS', avg:15.03, best:12.60, stops:33, jgr:false},
+    {car:'21', org:'RCR', avg:15.06, best:13.13, stops:30, jgr:false},
+    {car:'8',  org:'JRM', avg:15.18, best:12.83, stops:39, jgr:false},
+    {car:'9',  org:'JRM', avg:15.31, best:13.90, stops:24, jgr:false},
+    {car:'7',  org:'JRM', avg:15.61, best:12.83, stops:48, jgr:false},
+    {car:'00', org:'HFR', avg:15.68, best:12.93, stops:56, jgr:false},
+    {car:'99', org:'VIK', avg:15.85, best:13.50, stops:25, jgr:false},
+    {car:'96', org:'VIK', avg:16.31, best:14.34, stops:28, jgr:false},
+    {car:'39', org:'IND', avg:16.34, best:13.92, stops:35, jgr:false},
+    {car:'24', org:'IND', avg:16.52, best:14.43, stops:36, jgr:false},
+    {car:'26', org:'IND', avg:16.64, best:14.56, stops:33, jgr:false},
+    {car:'27', org:'JAR', avg:16.75, best:14.39, stops:28, jgr:false},
+    {car:'31', org:'JAR', avg:16.79, best:14.60, stops:29, jgr:false},
+    {car:'32', org:'JAR', avg:16.82, best:14.75, stops:32, jgr:false},
+    {car:'48', org:'IND', avg:17.00, best:14.47, stops:32, jgr:false},
+    {car:'28', org:'IND', avg:17.07, best:15.15, stops:32, jgr:false},
+    {car:'44', org:'IND', avg:17.43, best:14.04, stops:40, jgr:false},
+    {car:'87', org:'IND', avg:17.54, best:15.34, stops:24, jgr:false},
+    {car:'51', org:'IND', avg:17.59, best:15.61, stops:21, jgr:false},
   ];
-
   const ORGS = [
-    {org:'JGR', avg:14.10, best:12.24, stops:90},
-    {org:'RCR', avg:14.60, best:12.29, stops:41},
-    {org:'JRM', avg:15.13, best:12.83, stops:104},
-    {org:'HFR', avg:15.26, best:13.47, stops:57},
-    {org:'HMS', avg:15.45, best:13.77, stops:22},
-    {org:'VIK', avg:16.15, best:14.34, stops:31},
-    {org:'JAR', avg:16.96, best:14.65, stops:61},
-    {org:'IND', avg:17.27, best:14.39, stops:228},
+    {org:'JGR', avg:14.03, best:12.24, stops:141, jgr:true},
+    {org:'RCR', avg:14.86, best:12.29, stops:69,  jgr:false},
+    {org:'HMS', avg:15.03, best:12.60, stops:33,  jgr:false},
+    {org:'JRM', avg:15.11, best:12.49, stops:181, jgr:false},
+    {org:'HFR', avg:15.34, best:12.93, stops:94,  jgr:false},
+    {org:'VIK', avg:16.09, best:13.50, stops:53,  jgr:false},
+    {org:'JAR', avg:16.79, best:14.39, stops:89,  jgr:false},
+    {org:'IND', avg:17.14, best:13.92, stops:370, jgr:false},
   ];
-
   const JGR_TREND = [
     {race:1,  track:'DAY',  avg:15.54, stops:3},
     {race:2,  track:'ATL',  avg:14.26, stops:7},
@@ -1111,101 +1151,225 @@ renderStandings('std-owner',  OWNER_STANDINGS);
     {race:7,  track:'MAR',  avg:13.76, stops:11},
     {race:9,  track:'BRI',  avg:14.42, stops:11},
     {race:10, track:'KAN',  avg:13.15, stops:14},
+    {race:11, track:'TAL',  avg:14.07, stops:2},
+    {race:12, track:'TEX',  avg:13.58, stops:13},
+    {race:13, track:'WGL',  avg:15.49, stops:5},
+    {race:14, track:'DOV',  avg:13.85, stops:11},
+    {race:15, track:'CLT',  avg:13.82, stops:8},
+    {race:16, track:'NSH',  avg:13.77, stops:12},
   ];
+  const FIELD_AVG = 15.66;
 
-  const FIELD_AVG = 15.23; // named teams only
-  const maxAvg = 19.5, minAvg = 12.0, rangeAvg = maxAvg - minAvg;
+    const NET_POS = [
+    {car:'18',org:'JGR',net:66,jgr:true},  {car:'20',org:'JGR',net:51,jgr:true},
+    {car:'54',org:'JGR',net:45,jgr:true},  {car:'2', org:'RCR',net:43,jgr:false},
+    {car:'48',org:'IND',net:41,jgr:false},  {car:'19',org:'JGR',net:21,jgr:true},
+    {car:'31',org:'JAR',net:20,jgr:false},  {car:'8', org:'JRM',net:20,jgr:false},
+    {car:'55',org:'IND',net:20,jgr:false},  {car:'28',org:'IND',net:19,jgr:false},
+    {car:'00',org:'HFR',net:17,jgr:false},  {car:'91',org:'IND',net:16,jgr:false},
+    {car:'26',org:'IND',net:12,jgr:false},  {car:'41',org:'HFR',net:10,jgr:false},
+    {car:'44',org:'IND',net:9, jgr:false},  {car:'27',org:'JAR',net:9, jgr:false},
+    {car:'24',org:'IND',net:8, jgr:false},  {car:'1', org:'JRM',net:3, jgr:false},
+    {car:'92',org:'IND',net:-2,jgr:false},  {car:'32',org:'JAR',net:-2,jgr:false},
+    {car:'02',org:'IND',net:-10,jgr:false}, {car:'17',org:'HMS',net:-16,jgr:false},
+    {car:'96',org:'VIK',net:-16,jgr:false}, {car:'39',org:'IND',net:-19,jgr:false},
+    {car:'0', org:'HFR',net:-21,jgr:false}, {car:'87',org:'IND',net:-27,jgr:false},
+    {car:'99',org:'VIK',net:-31,jgr:false}, {car:'9', org:'JRM',net:-36,jgr:false},
+    {car:'7', org:'JRM',net:-38,jgr:false}, {car:'88',org:'JRM',net:-44,jgr:false},
+    {car:'51',org:'IND',net:-52,jgr:false},
+  ];
+  const maxNet = 66, minNet = -52, netRange = maxNet - minNet;
+  const zeroPos = (maxNet / netRange * 100).toFixed(1);
 
-  let html = '';
+  // ── Sub-tab state ──
+  let activeTab = 'overview';
 
-  // ── Row 1: Org ranking + JGR car KPI cards ──
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">';
+  function renderTabs() {
+    const tabs = [
+      {id:'overview',   label:'Overview'},
+      {id:'field',      label:'Field Rankings'},
+      {id:'detail',     label:'JGR Detail'},
+    ];
+    let nav = '<div style="display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:20px">';
+    tabs.forEach(t => {
+      const active = t.id === activeTab;
+      nav += '<button onclick="pitTab(\''+t.id+'\')" style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:10px 20px;border:none;background:none;cursor:pointer;color:'+(active?'#7c3aed':'var(--muted)')+';border-bottom:'+(active?'3px solid #7c3aed':'3px solid transparent')+';margin-bottom:-2px">' + t.label + '</button>';
+    });
+    nav += '</div>';
+    return nav;
+  }
 
-  // Org ranking
-  html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
-  html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Avg Pit Stop Time — By Organization</div>';
-  html += '<div style="font-size:11px;color:var(--muted);margin-bottom:14px">2026 Season · All 4-tire stops · Lower is better</div>';
-  ORGS.forEach((o,i) => {
-    const col = ORG_CLR[o.org];
-    const pct = (o.avg / maxAvg * 100).toFixed(1);
-    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;width:24px;text-align:right;color:var(--muted)">' + (i+1) + '</div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;width:38px;color:' + col + '">' + o.org + '</div>';
-    html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:22px;overflow:hidden">';
-    html += '<div style="width:' + pct + '%;height:100%;background:' + col + ';border-radius:3px;display:flex;align-items:center;padding-left:8px">';
-    html += '<span style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;color:#fff">' + o.avg.toFixed(2) + 's</span>';
-    html += '</div></div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;color:var(--muted);width:32px;text-align:right">' + o.stops + '</div>';
-    html += '</div>';
-  });
-  html += '</div>';
+  window.pitTab = function(id) {
+    activeTab = id;
+    render();
+  };
 
-  // JGR car KPI cards
-  html += '<div style="display:flex;flex-direction:column;gap:10px">';
-  const jgrCars = FIELD.filter(f => f.jgr);
-  jgrCars.forEach(c => {
-    const col    = CAR_COLORS[c.car];
-    const rank   = FIELD.findIndex(f => f.car === c.car) + 1;
-    const vsField= (c.avg - FIELD_AVG).toFixed(2);
-    const vsColor= c.avg < FIELD_AVG ? 'var(--good)' : 'var(--bad)';
-    html += '<div style="background:#fff;border-radius:8px;padding:12px 20px;border:1px solid var(--border);border-left:4px solid ' + col + ';display:grid;grid-template-columns:140px 1fr 1fr 1fr 1fr;align-items:center;gap:12px">';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:15px;font-weight:800;color:' + col + '">' + (CAR_LABELS[c.car]||c.car) + '</div>';
-    html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Field Rank</div><div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:var(--dark)">P' + rank + '<span style="font-size:11px;color:var(--muted)"> /' + FIELD.length + '</span></div></div>';
-    html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Avg Stop</div><div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:var(--dark)">' + c.avg.toFixed(2) + '<span style="font-size:11px;font-weight:400">s</span></div></div>';
-    html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Best Stop</div><div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:var(--good)">' + c.best.toFixed(2) + '<span style="font-size:11px;font-weight:400">s</span></div></div>';
-    html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">vs Field</div><div style="font-family:Barlow Condensed,sans-serif;font-size:22px;font-weight:900;color:' + vsColor + '">' + (parseFloat(vsField)>0?'+':'') + vsField + '<span style="font-size:11px;font-weight:400">s</span></div></div>';
-    html += '</div>';
-  });
-  html += '</div>';
-  html += '</div>';
+  function render() {
+    let html = renderTabs();
 
-  // ── Row 2: Full car ranking + JGR trend ──
-  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">';
+    if(activeTab === 'overview') {
+      // ── Net positions hero ──
+      html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border);margin-bottom:20px">';
+      html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Net Positions Gained — 2026 Season</div>';
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:16px">Positions gained (+) or lost (−) across all pit stops · JGR holds P1–P3 and P6 in the field</div>';
+      // JGR callout strip
+      html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px">';
+      NET_POS.filter(d=>d.jgr).forEach(d => {
+        const col = CAR_COLORS[d.car];
+        const rank = NET_POS.findIndex(x=>x.car===d.car)+1;
+        html += '<div style="border-left:4px solid '+col+';padding:10px 14px;background:var(--bg);border-radius:0 6px 6px 0">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:800;color:'+col+'">'+CAR_LABELS[d.car]+'</div>';
+        html += '<div style="display:flex;align-items:baseline;gap:8px;margin-top:4px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:32px;font-weight:900;color:var(--good)">+'+d.net+'</div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;color:var(--muted)">P'+rank+' field</div>';
+        html += '</div></div>';
+      });
+      html += '</div>';
+      // Full field diverging bars
+      html += '<div style="position:relative">';
+      html += '<div style="position:absolute;left:'+zeroPos+'%;top:0;bottom:0;width:2px;background:var(--border);z-index:1"></div>';
+      NET_POS.forEach(d => {
+        const col = ORG_CLR[d.org] || '#9ca3af';
+        const barW = (Math.abs(d.net) / netRange * 100).toFixed(1);
+        html += '<div style="display:flex;align-items:center;margin-bottom:3px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:'+(d.jgr?'800':'500')+';width:30px;text-align:right;color:'+(d.jgr?ORG_CLR.JGR:'var(--muted)')+';">#'+d.car+'</div>';
+        html += '<div style="flex:1;display:flex;align-items:center;margin-left:6px">';
+        html += '<div style="width:'+zeroPos+'%;display:flex;justify-content:flex-end">';
+        if(d.net<0) html += '<div style="width:'+barW+'%;height:14px;background:#ef4444;border-radius:2px 0 0 2px"></div>';
+        html += '</div>';
+        html += '<div style="width:'+(100-parseFloat(zeroPos))+'%;display:flex">';
+        if(d.net>=0) html += '<div style="width:'+barW+'%;height:14px;background:'+col+';border-radius:0 2px 2px 0"></div>';
+        html += '</div></div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:'+(d.jgr?'800':'500')+';width:36px;color:'+(d.net>=0?'var(--good)':'var(--bad)')+'">'+( d.net>0?'+':'')+d.net+'</div>';
+        html += '</div>';
+      });
+      html += '</div></div>';
 
-  // Full car ranking
-  html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
-  html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Avg Pit Stop Time — By Car</div>';
-  html += '<div style="font-size:11px;color:var(--muted);margin-bottom:12px">2026 Season · Min 5 stops · Colored by organization</div>';
-  FIELD.forEach((f,i) => {
-    const col = ORG_CLR[f.org];
-    const pct = (f.avg / maxAvg * 100).toFixed(1);
-    html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:700;width:20px;text-align:right;color:var(--muted)">' + (i+1) + '</div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:800;width:30px;color:' + col + '">#' + f.car + '</div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:700;width:28px;color:' + col + '">' + f.org + '</div>';
-    html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:16px;overflow:hidden">';
-    html += '<div style="width:' + pct + '%;height:100%;background:' + col + ';border-radius:3px"></div></div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;width:44px;text-align:right;color:' + col + '">' + f.avg.toFixed(2) + 's</div>';
-    html += '</div>';
-  });
-  html += '</div>';
+      // ── JGR KPI cards ──
+      html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">';
+      const jgrCars = FIELD.filter(f => f.jgr);
+      jgrCars.forEach(c => {
+        const col = CAR_COLORS[c.car];
+        const rank = FIELD.findIndex(f=>f.car===c.car)+1;
+        const vsField = (c.avg - FIELD_AVG).toFixed(2);
+        const vsColor = c.avg < FIELD_AVG ? 'var(--good)' : 'var(--bad)';
+        html += '<div style="background:#fff;border-radius:8px;padding:16px 20px;border:1px solid var(--border);border-top:4px solid '+col+'">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:'+col+';margin-bottom:10px">'+CAR_LABELS[c.car]+'</div>';
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">';
+        html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Field Rank</div><div style="font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:900;color:var(--dark)">P'+rank+'<span style="font-size:11px;color:var(--muted)"> /'+FIELD.length+'</span></div></div>';
+        html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Avg Stop</div><div style="font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:900;color:var(--dark)">'+c.avg.toFixed(2)+'<span style="font-size:11px;font-weight:400">s</span></div></div>';
+        html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">Best Stop</div><div style="font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:900;color:var(--good)">'+c.best.toFixed(2)+'<span style="font-size:11px;font-weight:400">s</span></div></div>';
+        html += '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em">vs Field</div><div style="font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:900;color:'+vsColor+'">'+(parseFloat(vsField)>0?'+':'')+vsField+'<span style="font-size:11px;font-weight:400">s</span></div></div>';
+        html += '</div></div>';
+      });
+      html += '</div>';
+    }
 
-  // JGR trend
-  html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
-  html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">JGR Avg Pit Stop Time — By Race</div>';
-  html += '<div style="font-size:11px;color:var(--muted);margin-bottom:14px">2026 Season · All 4 cars combined</div>';
-  const trendMax = 16.5, trendMin = 12.5, trendRange = trendMax - trendMin;
-  JGR_TREND.forEach(r => {
-    const pct  = (r.avg / trendMax * 100).toFixed(1);
-    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;width:60px;color:var(--mid)">R' + r.race + ' ' + r.track + '</div>';
-    html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:22px;overflow:hidden">';
-    html += '<div style="width:' + pct + '%;height:100%;background:#7c3aed;border-radius:3px;display:flex;align-items:center;padding-left:8px">';
-    html += '<span style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;color:#fff">' + r.avg.toFixed(2) + 's</span>';
-    html += '</div></div>';
-    html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;color:var(--muted);width:24px;text-align:right">' + r.stops + '</div>';
-    html += '</div>';
-  });
-  const seasonAvg = (JGR_TREND.reduce((a,r)=>a+r.avg*r.stops,0) / JGR_TREND.reduce((a,r)=>a+r.stops,0));
-  html += '<div style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px;font-family:Barlow Condensed,sans-serif;font-size:12px;color:var(--mid)">';
-  html += 'Season avg: <strong style="color:#7c3aed">' + seasonAvg.toFixed(2) + 's</strong>';
-  html += ' &nbsp;·&nbsp; Field avg: <strong style="color:var(--muted)">' + FIELD_AVG.toFixed(2) + 's</strong>';
-  html += ' &nbsp;·&nbsp; <strong style="color:var(--good)">JGR ' + (FIELD_AVG - seasonAvg).toFixed(2) + 's faster than field</strong>';
-  html += '</div>';
-  html += '</div>';
+    else if(activeTab === 'field') {
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">';
 
-  html += '</div>';
-  container.innerHTML = html;
+      // Org ranking
+      html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
+      html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Avg Pit Stop Time — By Organization</div>';
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:14px">2026 Season · All 4-tire stops · Axis: 12.5s – 19.5s</div>';
+      const maxAvg = 19.5, minAvg = 12.5, rangeAvg = maxAvg - minAvg;
+      ORGS.forEach((o,i) => {
+        const col = ORG_CLR[o.org];
+        const pct = Math.min(100, Math.max(0, (o.avg - minAvg) / rangeAvg * 100)).toFixed(1);
+        html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:700;width:24px;text-align:right;color:var(--muted)">'+(i+1)+'</div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;width:38px;color:'+col+'">'+o.org+'</div>';
+        html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:22px;overflow:hidden">';
+        html += '<div style="width:'+pct+'%;height:100%;background:'+col+';border-radius:3px;display:flex;align-items:center;padding-left:8px">';
+        html += '<span style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;color:#fff">'+o.avg.toFixed(2)+'s</span>';
+        html += '</div></div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;color:var(--muted);width:32px;text-align:right">'+o.stops+'</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+
+      // Car ranking
+      html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
+      html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Avg Pit Stop Time — By Car</div>';
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:12px">2026 Season · Min 5 stops · Axis: 12.5s – 19.5s</div>';
+      FIELD.forEach((f,i) => {
+        const col = ORG_CLR[f.org];
+        const pct = Math.min(100, Math.max(0, (f.avg - minAvg) / rangeAvg * 100)).toFixed(1);
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:700;width:20px;text-align:right;color:var(--muted)">'+(i+1)+'</div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:800;width:30px;color:'+col+'">#'+f.car+'</div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:700;width:28px;color:'+col+'">'+f.org+'</div>';
+        html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:16px;overflow:hidden">';
+        html += '<div style="width:'+pct+'%;height:100%;background:'+col+';border-radius:3px"></div></div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;width:44px;text-align:right;color:'+col+'">'+f.avg.toFixed(2)+'s</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    }
+
+    else if(activeTab === 'detail') {
+      // JGR trend by race
+      html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">';
+      html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
+      html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">JGR Avg Pit Stop Time — By Race</div>';
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:14px">2026 Season · All 4 cars combined · Axis: 12.5s – 16.5s</div>';
+      const trendMax = 16.5, trendMin = 12.5, trendRange = trendMax - trendMin;
+      JGR_TREND.forEach(r => {
+        const pct = Math.min(100, Math.max(0, (r.avg - trendMin) / trendRange * 100)).toFixed(1);
+        html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;width:60px;color:var(--mid)">R'+r.race+' '+r.track+'</div>';
+        html += '<div style="flex:1;background:var(--chart-track);border-radius:3px;height:22px;overflow:hidden">';
+        html += '<div style="width:'+pct+'%;height:100%;background:#7c3aed;border-radius:3px;display:flex;align-items:center;padding-left:8px">';
+        html += '<span style="font-family:Barlow Condensed,sans-serif;font-size:12px;font-weight:700;color:#fff">'+r.avg.toFixed(2)+'s</span>';
+        html += '</div></div>';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;color:var(--muted);width:24px;text-align:right">'+r.stops+'</div>';
+        html += '</div>';
+      });
+      const seasonAvg = (JGR_TREND.reduce((a,r)=>a+r.avg*r.stops,0)/JGR_TREND.reduce((a,r)=>a+r.stops,0));
+      html += '<div style="border-top:1px solid var(--border);margin-top:10px;padding-top:10px;font-family:Barlow Condensed,sans-serif;font-size:12px;color:var(--mid)">';
+      html += 'Season avg: <strong style="color:#7c3aed">'+seasonAvg.toFixed(2)+'s</strong>';
+      html += ' &nbsp;·&nbsp; Field avg: <strong style="color:var(--muted)">'+FIELD_AVG.toFixed(2)+'s</strong>';
+      html += ' &nbsp;·&nbsp; <strong style="color:var(--good)">JGR '+(FIELD_AVG-seasonAvg).toFixed(2)+'s faster than field</strong>';
+      html += '</div></div>';
+
+      // PR Metrics grid
+      html += '<div style="background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--border)">';
+      html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dark);margin-bottom:4px">Pit Road Metrics — JGR Cars</div>';
+      html += '<div style="font-size:11px;color:var(--muted);margin-bottom:14px">PR Report season rankings · Lower is better except Net Pos</div>';
+      const prMetrics = [
+        {label:'Avg Pit Stop', unit:'s',  vals:{'20':13.13,'18':13.50,'54':13.71,'19':14.23}, dir:1},
+        {label:'Rolling CL',  unit:'CL', vals:{'20':0.40,'54':0.75,'18':1.46,'19':1.65},     dir:1},
+        {label:'B/A CL',      unit:'CL', vals:{'54':1.67,'18':1.92,'20':1.97,'19':2.20},     dir:1},
+        {label:'Driver CL',   unit:'CL', vals:{'20':1.61,'54':1.67,'18':2.30,'19':3.05},     dir:1},
+        {label:'GF Entry',    unit:'s',  vals:{'18':-0.12,'20':0.38,'54':0.54,'19':0.94},    dir:1},
+        {label:'GF Exit',     unit:'s',  vals:{'20':-0.01,'54':0.14,'18':0.20,'19':0.20},    dir:1},
+        {label:'Net Pos',     unit:'',   vals:{'18':66,'20':51,'54':45,'19':21},              dir:-1},
+      ];
+      prMetrics.forEach(m => {
+        html += '<div style="margin-bottom:12px">';
+        html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em">'+m.label+'</div>';
+        html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">';
+        const sorted = Object.entries(m.vals).sort((a,b)=>m.dir===1?a[1]-b[1]:b[1]-a[1]);
+        sorted.forEach(([car,val],rank) => {
+          const col = CAR_COLORS[car];
+          const rankCol = rank===0?'var(--good)':rank===1?'var(--warn)':'var(--mid)';
+          html += '<div style="border-top:3px solid '+col+';padding:6px 8px;background:var(--bg);border-radius:0 0 4px 4px;text-align:center">';
+          html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:9px;font-weight:700;color:'+rankCol+'">P'+(rank+1)+'</div>';
+          html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:700;color:'+col+'">#'+car+'</div>';
+          html += '<div style="font-family:Barlow Condensed,sans-serif;font-size:13px;font-weight:900;color:var(--dark)">'+(m.dir===-1&&val>0?'+':'')+val+(m.unit?m.unit:'')+'</div>';
+          html += '</div>';
+        });
+        html += '</div></div>';
+      });
+      html += '</div>';
+      html += '</div>';
+    }
+
+    container.innerHTML = html;
+  }
+
+  render();
 })();
 
 
